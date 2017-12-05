@@ -1,0 +1,38 @@
+.find {
+    .section-header {
+        padding-left: 14px;
+        margin-bottom: 12px;
+        font-weight: bolder;
+        position: relative;
+        &::before {
+            content: '';
+            width: 5px;
+            height: 16px;
+            left: 0;
+            top: 50%;
+            background-color: #F57614;
+            position: absolute;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+    }
+    .section-content .card {
+        background-color: transparent;
+        margin-bottom: 10px;
+        .intro {
+            padding: 2px 6px; // font-size: 13px;
+            .subtitle {
+                color: #4c4c4c;
+            }
+        }
+    }
+    .recommend-playlist,
+    .latest-song,
+    .recommend-MV {
+        margin-bottom: 12px;
+    }
+    .recommend-MV .section-content {
+        -webkit-overflow-scrolling: touch;
+    }
+}

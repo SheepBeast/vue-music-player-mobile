@@ -1,0 +1,84 @@
+.spectrum {
+    width: 24px;
+    height: 20px;
+    background-color: transparent;
+    display: inline-block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    li {
+        list-style: none;
+        background-color: #fff;
+        width: 5px;
+        -webkit-transform-origin: center bottom;
+        -ms-transform-origin: center bottom;
+        transform-origin: center bottom;
+    }
+    &.playing li {
+        -webkit-animation-name: playing;
+        animation-name: playing;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-duration: 0.8s;
+        animation-duration: 0.8s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+    }
+    .s1 {
+        -webkit-transform: scaleY(.33);
+        -ms-transform: scaleY(.33);
+        transform: scaleY(.33);
+        -webkit-animation-delay: .1s;
+        animation-delay: .1s;
+    }
+    .s2 {
+        -webkit-transform: scaleY(.66);
+        -ms-transform: scaleY(.66);
+        transform: scaleY(.66);
+        -webkit-animation-delay: .3s;
+        animation-delay: .3s;
+    }
+    .s3 {
+        -webkit-transform: scaleY(1);
+        -ms-transform: scaleY(1);
+        transform: scaleY(1);
+        -webkit-animation-delay: .6s;
+        animation-delay: .6s;
+    }
+}
+
+@-webkit-keyframes playing {
+    0% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    50% {
+        -webkit-transform: scaleY(.3);
+        transform: scaleY(.3);
+    }
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+
+@keyframes playing {
+    0% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    50% {
+        -webkit-transform: scaleY(.3);
+        transform: scaleY(.3);
+    }
+    100% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}

@@ -1,0 +1,99 @@
+.list {
+    margin: 0;
+    padding: 0;
+    padding-left: 8px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    position: relative;
+    list-style: none;
+    background-color: #fff;
+    color: rgba(0, 0, 0, .87);
+    .list-item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-flow: row;
+        flex-flow: row;
+        .list-item-holder {
+            min-height: 60px;
+            padding: 8px;
+            padding-left: 0;
+            position: relative;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-flow: row;
+            flex-flow: row;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            &.dense {
+                min-height: 36px;
+            }
+            &.middle {
+                min-height: 48px;
+            }
+            &.large {
+                min-height: 72px;
+            }
+            .list-item-inner {
+                width: 0;
+                -ms-flex-preferred-size: auto;
+                flex-basis: auto;
+                -webkit-box-flex: 1;
+                -ms-flex-positive: 1;
+                flex-grow: 1;
+                -ms-flex-negative: 1;
+                flex-shrink: 1;
+                .primary-title {
+                    font-size: 16px;
+                }
+                .secondary-title {
+                    font-size: 14px;
+                }
+                .third-title {
+                    font-size: 12px;
+                }
+                .secondary-title,
+                .third-title {
+                    margin: 0;
+                    color: rgba(0, 0, 0, .54);
+                }
+                .primary-title,
+                .secondary-title,
+                .third-title {
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+        &:not(:last-child) .list-item-holder:after {
+            content: " ";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px; // background-color: rgba(0, 0, 0, 0.05);
+            background-color: #eee;
+        }
+    }
+}

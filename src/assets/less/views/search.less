@@ -1,0 +1,84 @@
+@import '../constant.less';
+.search {
+    font-size: 12px;
+    padding-top: @navbar-height;
+    .toolbar {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FA8723), to(#F57614));
+        background: linear-gradient(to bottom, #FA8723 0, #F57614 100%);
+    }
+    .cancel {
+        margin-right: 10px;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        -webkit-transition: width 0.3s linear;
+        transition: width 0.3s linear;
+        width: 28px;
+        overflow: hidden;
+        white-space: nowrap;
+        &.hidden {
+            width: 0;
+        }
+    }
+    .hot-search,
+    .search-history,
+    .search-suggest {
+        .material-icons {
+            font-size: 20px;
+            color: rgba(0, 0, 0, 0.3);
+        }
+    }
+    .searchbar-container .searchbar-inner {
+        margin-left: 0;
+        background-color: #fff;
+    }
+    .list>.list-item>.list-item-holder>.list-item-inner>span {
+        font-size: 14px;
+    }
+    .hot-search {
+        padding-left: 8px;
+        padding-right: 8px;
+        overflow: hidden;
+        border-top: 1px solid #eee;
+        >h3 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #5a5a5a;
+        }
+        .search-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #d0d0d0;
+            border-radius: 24px;
+        }
+    }
+    .search-history .icon-history {
+        margin-right: 10px;
+    }
+    .search-suggest .type {
+        color: rgba(0, 0, 0, 0.33);
+        display: inline-block;
+        margin-right: 10px;
+        width: 30px;
+    }
+    .search-result {
+        .songs .list .material-icons {
+            display: inline-block;
+        }
+        .alias {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .list .list-item .list-item-holder.no-avatar {
+            padding-left: 0;
+        }
+        &.hidden {
+            height: 0;
+            overflow: hidden;
+        }
+    }
+    .search-result.hidden {
+        height: 0;
+        overflow: hidden;
+    }
+}

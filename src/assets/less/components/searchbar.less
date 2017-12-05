@@ -1,0 +1,70 @@
+.searchbar-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: transparent;
+    .searchbar-inner {
+        width: 100%;
+        color: gray;
+        position: relative;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        padding-left: 10px;
+        padding-right: 10px;
+        .cancel {
+            visibility: hidden;
+            position: relative;
+            right: -6px;
+            &.visible {
+                visibility: visible;
+            }
+        }
+        .material-icons {
+            position: relative;
+            font-size: 20px;
+        }
+        .searchbar-form {
+            width: 100%;
+            .searchbar-input {
+                display: block;
+                width: 100%;
+                height: 28px;
+                font-size: 13px;
+                -webkit-appearance: none;
+                outline: none;
+                border: none;
+                background-color: transparent;
+                &::-webkit-search-decoration,
+                &::-webkit-search-cancel-button {
+                    display: none;
+                }
+            }
+        }
+    }
+    .searchbar-cancel {
+        width: 60px;
+        padding-left: 4px;
+        padding-right: 8px;
+        font-size: 16px;
+    }
+}

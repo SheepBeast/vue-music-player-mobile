@@ -1,0 +1,116 @@
+.music-player-interface {
+    overflow: hidden;
+    z-index: 10;
+    position: fixed;
+    height: 100%;
+    background: rgb(140, 140, 140);
+    #blur::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        -webkit-transition: background-color 0.5s ease;
+        transition: background-color 0.5s ease;
+    }
+    #blur.mask::before {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    .cover {
+        position: relative;
+        >img {
+            // width: 100%;
+            display: block;
+            z-index: 2;
+            position: relative;
+            opacity: 1;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+            -webkit-transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease;
+            &.hidden {
+                opacity: 0;
+            }
+        }
+    }
+    .lyric {
+        width: 100%;
+        height: 90%;
+        padding-top: 50%;
+        overflow: hidden;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        .lyc-wrapper {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px; // margin-top: 50%;
+            position: relative;
+            -webkit-transition: top 0.3s ease;
+            transition: top 0.3s ease;
+            p {
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-bottom: 8px;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            .lighter {
+                color: white;
+            }
+        }
+    }
+    .back {
+        position: absolute;
+        top: 10px;
+    }
+    @import './timeline.less';
+    .controls {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        .info {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; // margin-top: 15px;
+            margin-bottom: 15px;
+            .name {
+                font-weight: bolder;
+            }
+            .artist {
+                color: rgba(0, 0, 0, 0.7);
+                font-size: 13px;
+            }
+        }
+        .operation-buttons {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+    }
+    @import './comment.less';
+    @import './miniInterface.less';
+    @import './playlist.less';
+}

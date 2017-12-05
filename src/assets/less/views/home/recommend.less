@@ -1,0 +1,23 @@
+.recommend {
+    .banner {
+        height: 150px;
+        overflow: hidden;
+        >img {
+            width: 100%;
+            position: relative;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            top: 50%;
+        }
+    }
+    .list {
+        .list-item:nth-child(1),
+        .list-item:nth-child(2),
+        .list-item:nth-child(3) {
+            .index {
+                color: red;
+            }
+        }
+    }
+}

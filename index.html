@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue-NeteaseCloudMusic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta name="msapplication-tap-highlight" content="no" />
+  <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <style>
+      .spectrum {
+        width: 24px;
+        height: 20px;
+        background-color: transparent;
+        display: inline-block;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+
+      }
+
+      .spectrum li {
+        list-style: none;
+        background-color: #F57614;
+        width: 5px;
+        -webkit-transform-origin: center bottom;
+        -ms-transform-origin: center bottom;
+        transform-origin: center bottom;
+      }
+
+      .spectrum.playing li {
+        -webkit-animation-name: playing;
+        animation-name: playing;
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        -webkit-animation-duration: 0.8s;
+        animation-duration: 0.8s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+      }
+
+      .spectrum .s1 {
+        -webkit-transform: scaleY(.33);
+        -ms-transform: scaleY(.33);
+        transform: scaleY(.33);
+        -webkit-animation-delay: .1s;
+        animation-delay: .1s;
+      }
+
+      .spectrum .s2 {
+        -webkit-transform: scaleY(.66);
+        -ms-transform: scaleY(.66);
+        transform: scaleY(.66);
+        -webkit-animation-delay: .3s;
+        animation-delay: .3s;
+      }
+
+      .spectrum .s3 {
+        -webkit-transform: scaleY(1);
+        -ms-transform: scaleY(1);
+        transform: scaleY(1);
+        -webkit-animation-delay: .6s;
+        animation-delay: .6s;
+      }
+
+      @-webkit-keyframes playing {
+        0% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+        50% {
+          -webkit-transform: scaleY(.3);
+          transform: scaleY(.3);
+        }
+        100% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+      }
+
+      @keyframes playing {
+        0% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+        50% {
+          -webkit-transform: scaleY(.3);
+          transform: scaleY(.3);
+        }
+        100% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+      }
+
+      .loading-page {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+
+      }
+
+      .loading-page .spectrum {
+        top: 50%;
+        position: relative;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    </style>
+    <div class="loading-page">
+      <ul class="spectrum playing">
+        <li class="s1"></li>
+        <li class="s2"></li>
+        <li class="s3"></li>
+      </ul>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.2/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.min.js"></script>
+  <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>

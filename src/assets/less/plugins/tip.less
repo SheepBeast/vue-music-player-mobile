@@ -1,0 +1,21 @@
+.tip {
+    padding: 10px;
+    background-color: rgba(10, 9, 9, 0.93);
+    border-radius: 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 3500;
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    &.active {
+        opacity: 1;
+    }
+}

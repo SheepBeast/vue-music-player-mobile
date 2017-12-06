@@ -11,6 +11,7 @@ import recommend from './modules/recommend'
 import album from './modules/album'
 import artist from './modules/artist'
 import user from './modules/user'
+import event from './modules/event'
 
 export default new Vuex.Store({
   modules: {
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     recommend,
     album,
     artist,
-    user
+    user,
+    event
   }
 }) 

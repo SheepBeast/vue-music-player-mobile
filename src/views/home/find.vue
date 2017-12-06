@@ -1,5 +1,5 @@
 <template>
-  <page-content id="wrapper" v-if="playlist && newSong">
+  <page-content v-if="playlist && newSong">
     <div class="find">
       <section class="recommend-playlist">
         <h4 class="section-header">推荐歌单</h4>
@@ -8,7 +8,7 @@
             <router-link :to="{name: 'playlist', query: {id: p.id}}" tag="div">
               <card>
                 <card-media>
-                  <img class="lazyload" v-lazyload="{src: p.picUrl, wrapper: '#find'}">
+                  <img class="lazyload" v-lazyload="{src: p.picUrl, wrapper: '#home'}">
                 </card-media>
                 <card-content class="intro">
                   <div class="title f-elpsl-2">{{p.name}}</div>

@@ -1,4 +1,5 @@
 <script>
+import {deviceInfo} from '../../assets/js/util'
 export default {
   render(h) {
     let swiperContainerEl,
@@ -30,17 +31,14 @@ export default {
       {
         staticClass: "swiper-wrapper",
         on: {
-          mousedown: this.mouseup,
+          mousedown: this.mousedown,
           mouseup: this.mouseup,
-
-          // mouseup: this.mouseup,
-          // mouseup: this.mouseup,
-
           transitionend: this.transitionend
         },
         style: {
           transform: `translateX(${-this.activeIndex * 100 + "%"})`
-        }
+        },
+        ref: 'wrapper'
       },
       [this.$slots.default]
     );
@@ -79,30 +77,25 @@ export default {
       slides: null,
       isSliding: false,
       tmp: {
-        // 记录触摸点的位置和时间
-        slideTouches: {
-          pageX: null,
+        pageX: null,
           startTime: null
-        },
-        // 自动轮播的定时器
-        timer: null
-      }
+      },
+      timer: null
     };
   },
 
   methods: {
-    mouseup(e) {
+    mousedown(e) {
       if (this.isSliding) {
         return false;
       }
-      clearTimeout(this.tmp.timer);
-
-      this.tmp.slideTouches.pageX = e.pageX;
-      this.tmp.slideTouches.startTime = Date.now();
+      clearTimeout(this.timer);
+      this.tmp.pageX = e.pageX;
+      this.tmp.startTime = Date.now();
     },
     mouseup(e) {
-      let touches = e,
-        offset = touches.pageX - this.tmp.slideTouches.pageX;
+      e.stopPropagation()
+      let offset = e.pageX - this.tmp.pageX;
 
       // 若在第一张幻灯片时向左滑动或在最后一张幻灯片向右滑动都无效
       if (
@@ -112,16 +105,16 @@ export default {
         return false;
       }
 
-      let abs_threshold, abs_timediff, nextIndex;
-
-      abs_threshold = Math.abs(offset);
-      abs_timediff = Math.abs(Date.now() - this.tmp.slideTouches.startTime);
+      let abs_threshold = Math.abs(offset),
+        abs_timediff = Math.abs(Date.now() - this.tmp.startTime),
+        nextIndex;
 
       // 滑动触发条件, (滑屏时间小于300毫秒 && 非点击事件) || 滑屏距离大于100px
-      if ((abs_timediff <= 300 && abs_threshold > 10) || abs_threshold >= 20) {
+      if ((abs_timediff <= 300 && abs_threshold > 10) || abs_threshold >= 100) {
         nextIndex = offset > 0 ? this.activeIndex - 1 : this.activeIndex + 1;
         this.slide(nextIndex, "touch");
       } else {
+        this.$emit('swiper:noop')
         this.autoPlay();
       }
     },
@@ -143,12 +136,13 @@ export default {
         }
       }
       this.activeIndex = nextIndex;
+      this.tmp.offset = nextIndex * deviceInfo.width
       this.isSliding = false;
     },
     autoPlay() {
       if (this.autoplay) {
-        clearTimeout(this.tmp.timer);
-        this.tmp.timer = setTimeout(
+        clearTimeout(this.timer);
+        this.timer = setTimeout(
           self => {
             let nextIndex = self.activeIndex + 1;
             if (nextIndex > self.slides - 1) {

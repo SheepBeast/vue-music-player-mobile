@@ -1,5 +1,5 @@
 <template>
-  <page class="home">
+  <page id="home" class="home">
     <toolbar fixed class="shadow-3d">
       <router-link :to="{name: 'search'}" class="btn-icon">
         <icon ligature="search" style="vertical-align: middle;"></icon>
@@ -27,24 +27,25 @@
 import find from "./find";
 // import recommend from './recommend'
 
-const recommend = resolve => require(["./recommend"], resolve);
+const recommend = resolve => require(["./recommend"], resolve),
+  event = resolve => require(['./event'], resolve);
 
 export default {
   name: "home",
   data() {
     return {
       currentView: "find",
-      tabs: [{ en: "find", zh: "发现" }, { en: "recommend", zh: "推荐" }]
+      tabs: [{ en: "find", zh: "发现" }, { en: "recommend", zh: "推荐" }, { en: "event", zh: "动态" }]
     };
   },
   components: {
     find,
-    recommend
+    recommend,
+    event
   },
   computed: Vuex.mapGetters("musicPlayer", ["playing", "currentPlays"]),
   methods: {
     viewChange(index) {
-      console.log("tabs", index);
       this.currentView = this.tabs[index].en;
     }
   }

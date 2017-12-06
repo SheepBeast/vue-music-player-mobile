@@ -1,7 +1,7 @@
 <template>
-  <div class="photo-browser" ref="photoBrowser" @animationend="animationend" @click="hide" >
-    <div class="fixed" ref="fixer">
-      <swiper @swiper:init="swiperInit" :autoplay="false">
+  <div class="photo-browser" ref="photoBrowser" @animationend="animationend">
+    <div class="fixer photo-browser-origin-image" ref="fixer">
+      <swiper @swiper:init="swiperInit" @swiper:noop="hide" :autoplay="false" :style="{display: overflow ? 'inline' : 'block'}">
         <swiper-slide v-for="p in pics" :key="p">
           <img :src="p" class="item" draggable="false">
         </swiper-slide>
@@ -18,13 +18,15 @@ export default {
       float: false,
       pics: [],
 
-      groups: [],
+      els: [],
       fixer: null,
       photoBrowser: null,
 
       swiper: null,
 
-      index: null
+      index: null,
+
+      overflow: false
     };
   },
   methods: {
@@ -37,16 +39,16 @@ export default {
      * 类型：Number
      * 作用：photoBrowser显示时默认展示第几张图，从0开始
      */
-    show(groups = [], index = 0) {
+    show(els = [], index = 0, meta) {
       console.time("show");
-      if (!Array.isArray(groups) || groups.length === 0) {
+      if (!Array.isArray(els) || els.length === 0) {
         return false;
       }
 
       this.float = true;
-      this.groups = groups;
+      this.els = els;
       this.index = index;
-      this.pics = groups.map(el => el.src);
+      this.pics = els.map(el => el.dataset.photoBrowserUrl);
 
       this.$nextTick(() => {
         this.swiper.go(index);
@@ -56,25 +58,30 @@ export default {
         self => {
           let fixerStyles = self.fixer.style,
             photoBrowserStyles = self.photoBrowser.style,
-            relatedTarget = self.groups[self.index],
-            rect = relatedTarget.getBoundingClientRect();
+            relatedTarget = self.els[self.index],
+            rect = relatedTarget.getBoundingClientRect(),
+            metaRatio = meta.height / meta.width,
+            overflow = metaRatio > deviceInfo.ratio;
+          
+          self.overflow = overflow;
 
+          // show
           fixerStyles.top = rect.top + "px";
           fixerStyles.left = rect.left + "px";
           fixerStyles.width = rect.width + "px";
-          fixerStyles.visibility = "visible";
-
+          fixerStyles.height = rect.height + "px";
+          
           photoBrowserStyles.display = "block";
 
           setTimeout(() => {
-            let radio = rect.width / rect.height,
-              top = (deviceInfo.height - deviceInfo.width / radio) / 2;
+            relatedTarget.style.opacity = 0;
 
-            relatedTarget.style.visibility = "hidden";
-
-            fixerStyles.top = `${top}px`;
-            fixerStyles.left = "0";
+            // shown
+            fixerStyles.top = 0
+            fixerStyles.left = 0;
             fixerStyles.width = "100%";
+            fixerStyles.height = "100%";
+            fixerStyles.opacity = 1;
 
             photoBrowserStyles.zIndex = "";
 
@@ -86,23 +93,27 @@ export default {
         this
       );
     },
-    hide() {
+    hide(e) {
       console.time("hide");
       this.float = false;
       setTimeout(
         self => {
           let fixerStyles = self.fixer.style,
             activeIndex = self.swiper.activeIndex,
-            currentTarget = self.groups[activeIndex],
+            currentTarget = self.els[activeIndex],
             rect = currentTarget.getBoundingClientRect();
 
           if (self.index !== activeIndex) {
-            currentTarget.style.visibility = "hidden";
-            self.groups[self.index].style.visibility = "visible";
+            currentTarget.style.opacity = 0;
+            self.els[self.index].style.opacity = 1;
           }
+          
+          // hide
           fixerStyles.top = rect.top + "px";
           fixerStyles.left = rect.left + "px";
           fixerStyles.width = rect.width + "px";
+          fixerStyles.height = rect.height + "px";
+          fixerStyles.opacity = 0.1;
 
           // self.photoBrowser.style.backgroundColor = "transparent";
           self.photoBrowser.classList.add("zoom-out");
@@ -115,19 +126,21 @@ export default {
     animationend() {
       if (!this.float) {
         console.time("animationend");
-        this.groups[this.swiper.activeIndex].style.visibility = "visible";
+        this.els[this.swiper.activeIndex].style.opacity = 1;
 
         setTimeout(
           self => {
             let fixerStyles = self.fixer.style,
               photoBrowserStyles = self.photoBrowser.style;
 
-            self.pics = [];
-            fixerStyles.top = "";
-            fixerStyles.left = "";
-            fixerStyles.width = "";
+            // hidden
+            fixerStyles.opacity = 0;
+            fixerStyles.top = fixerStyles.left = fixerStyles.width = fixerStyles.height = fixerStyles.overflow = photoBrowserStyles.display =
+              "";
 
-            photoBrowserStyles.display = "";
+            self.overflow = false;
+
+            // photoBrowserStyles.display = "";
             photoBrowserStyles.zIndex = -1000;
 
             self.photoBrowser.classList.remove("zoom-in", "zoom-out");
@@ -141,7 +154,7 @@ export default {
     },
     reset() {
       this.pics = [];
-      this.groups = [];
+      this.els = [];
       this.index = null;
     },
     init() {

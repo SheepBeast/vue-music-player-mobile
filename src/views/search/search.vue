@@ -20,15 +20,13 @@
 
       <section class="search-history">
         <list>
-          <list-item v-for="(h, i) in history" :key="i" @click.native="quicksearch(h.keywords)">
+          <list-item v-for="(h, i) in history" :key="i">
             <icon class="icon-history" ligature="history"></icon>
             <list-item-holder class="dense">
-              <list-item-inner>
+              <list-item-inner @click.native="quicksearch(h.keywords)">
                 <span>{{h.keywords}}</span>
               </list-item-inner>
-              <span @click="removeHistory(h.keywords)">
-                <icon ligature="close"></icon>
-              </span>
+                <icon ligature="close" @click.native="removeHistory(h.keywords)"></icon>
             </list-item-holder>
           </list-item>
         </list>
@@ -38,7 +36,7 @@
     <section class="search-suggest" v-show="step === 'suggest'">
       <list>
         <list-item>
-          <list-item-holder class="dense" @click.native="quicksearch">
+          <list-item-holder class="dense" @click.native="quicksearch()">
             <list-item-inner>
               <small class="type">搜索</small>{{keywords}}
             </list-item-inner>

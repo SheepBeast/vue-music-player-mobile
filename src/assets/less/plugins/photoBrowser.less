@@ -21,11 +21,24 @@
         -webkit-animation-name: photo-browser-zoom-out;
         animation-name: photo-browser-zoom-out;
     }
-    .fixed {
+    .fixer {
         position: absolute;
+        opacity: 0;
+        overflow: auto;
         -webkit-transition: all 0.5s ease;
         transition: all 0.5s ease;
     }
+    .swiper {
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+    }
+}
+
+.photo-browser-origin-image {
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 // photo-browser-zoom-in

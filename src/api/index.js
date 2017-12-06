@@ -24,3 +24,5 @@ export const API_MUSIC_LYRIC = SERVER + '/lyric'
 
 export const API_PLAYLIST_DETAIL = SERVER + '/playlist/detail'
 export const API_PLAYLIST_COMMENT = SERVER + '/comment/playlist'
+
+export const API_EVENT = SERVER + '/event'

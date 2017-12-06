@@ -26,14 +26,12 @@ import listItemHolder from './list/listItemHolder.vue'
 import listItemInner from './list/listItemInner.vue'
 
 // 轮播图
-// import swiper from './swiper/swiper.vue'
-// import swiperSlide from './swiper/swiperSlide.vue'
+import swiper from './swiper/swiper.vue'
+import swiperSlide from './swiper/swiperSlide.vue'
 
 // 标签栏
 import tabsNavigation from './tabs/tabsNavigation.vue'
 import tabLabel from './tabs/tabLabel.vue'
-// import tabsContent from './tabs/tabsContent.vue'
-// import tab from './tabs/tab.vue'
 
 // 页面
 import page from './page/page.vue'
@@ -76,13 +74,11 @@ export default {
         listItemHolder,
         listItemInner,
 
-        // swiper,
-        // swiperSlide,
+        swiper,
+        swiperSlide,
 
         tabsNavigation,
         tabLabel,
-        // tabsContent,
-        // tab,
 
         page,
         pageContent,

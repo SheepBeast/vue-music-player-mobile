@@ -52,10 +52,12 @@ export function createService(name, vnode) {
 }
 
 export const deviceInfo = (function () {
-  return {
+  let info = {
     width: document.documentElement.clientWidth || document.body.clientWidth,
     height: document.documentElement.clientHeight || document.body.clientHeight
   }
+  info.ratio = info.height / info.width
+  return info
 })()
 
 
@@ -65,6 +67,12 @@ export function replaceEmoji(str) {
   return str ? str.replace(emojiReg, w => {
     return `<img class="emoji" src="${emoji[w]}"/>`
   }) : ''
+}
+
+const topicReg = /\#.*\#\s+/ig
+
+export function replaceTopic(str) {
+  return str ? str.replace(topicReg, '') : ""
 }
 
 export function stop() {

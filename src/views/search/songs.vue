@@ -10,7 +10,7 @@
         <router-link tag="div" class="list-item-holder middle" :to="{name: 'album', query: {id: multi
         .album.id}}">
           <list-item-inner>
-            <div class="prinary-title f-elpsl-1">
+            <div class="primary-title f-elpsl-1">
               专辑：{{multi.album.name}}
             </div>
             <div class="third-title f-elpsl-1">{{multi.album.artist}}</div>
@@ -27,7 +27,7 @@
         <router-link tag="div" class="list-item-holder middle" :to="{name: 'artist', query: {id: multi
         .artist.id}}">
           <list-item-inner>
-            <div class="prinary-title f-elpsl-1">
+            <div class="primary-title f-elpsl-1">
               歌手：{{multi.artist.name}}
               <span class="alias" v-if="multi.artist.alias">（{{multi.artist.alias}}）</span>
             </div>
@@ -39,14 +39,14 @@
       <list-item v-for="s in songs" :key="s.id">
         <router-link v-if="s.album.status >= 0" tag="div" class="list-item-holder dense no-avatar" :to="{name: 'musicPlayer', query: {id: s.id}}">
           <list-item-inner>
-            <div class="prinary-title f-elpsl-1">{{s.name}}</div>
+            <div class="primary-title f-elpsl-1">{{s.name}}</div>
             <div class="third-title f-elpsl-1">{{s.artist.name}} - {{s.album.name}}</div>
           </list-item-inner>
           <icon ligature="play_circle_outline" class="icon-play"></icon>
         </router-link>
         <list-item-holder class="dense no-avatar" @click.native="unsupported" v-else>
           <list-item-inner>
-            <div class="prinary-title f-elpsl-1">{{s.name}}</div>
+            <div class="primary-title f-elpsl-1">{{s.name}}</div>
             <div class="third-title f-elpsl-1">{{s.artist.name}} - {{s.album.name}}</div>
           </list-item-inner>
           <icon ligature="play_circle_outline" class="icon-play"></icon>

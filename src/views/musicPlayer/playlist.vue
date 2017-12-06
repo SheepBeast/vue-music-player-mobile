@@ -3,11 +3,11 @@
     <div class="backdrop" @click="close"></div>
     <div class="music-player-playlist" :class="{active}">
       <div class="playlist-history-header text-center">历史记录</div>
-      <list style="background-color: transparent;">
+      <list class="history-list">
         <list-item @click.native="cut(i)" v-for="(p, i) in playlist" :key="p.id" :style="{color: playIndex == i ? 'rgba(255, 69, 0, 0.8)' : '#000'}">
           <list-item-holder class="dense">
             <list-item-inner>
-              <div class="prinary-title">
+              <div class="primary-title">
                 {{p.name}} -
                 <small>{{p.ar[0].name}}</small>
                 <icon ligature="close" class="close" @click.native="remove(i)"></icon>

@@ -59,7 +59,7 @@
         </avatar>
         <list-item-holder class="dense u-pl-0">
           <list-item-inner>
-            <div class="prinary-title f-elpsl-1">{{p.name}}</div>
+            <div class="primary-title f-elpsl-1">{{p.name}}</div>
             <div class="third-title f-elpsl-1">{{p.trackCount}}首，播放{{p.playCount}}次</div>
           </list-item-inner>
         </list-item-holder>

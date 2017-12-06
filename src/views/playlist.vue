@@ -29,7 +29,6 @@
 
       <div class="pl-header-wrapper">
         <img :src="playlist.coverImgUrl" class="pl-header-cover">
-        <!-- <img :src="playlist.coverImgUrl" class="pl-header-cover" v-photo-browser="{group: 'pl' + playlist.id}"> -->
         <div class="pl-header-info">
           <h4 class="title f-elpsl-2">{{playlist.name}}</h4>
           <router-link v-if="playlist.creator" tag="div" :to="{name: 'user', query: {id: playlist.creator.userId}}">
@@ -60,7 +59,7 @@
           <span class="index">{{idx + 1}}</span>
           <router-link :to="{name: 'musicPlayer', query: {id: t.id}}" tag="div" class="list-item-holder dense">
             <list-item-inner>
-              <div class="prinary-title f-elpsl-1">
+              <div class="primary-title f-elpsl-1">
                 {{t.name}}
                 <span v-if="t.alia[0]">{{t.alia[0]}}</span>
               </div>

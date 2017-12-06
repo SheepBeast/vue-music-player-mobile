@@ -44,7 +44,7 @@
           <span class="index">{{idx + 1}}</span>
           <router-link class="list-item-holder dense" :to="{name: 'musicPlayer', query: {id: hs.id}}" tag="div">
             <list-item-inner>
-              <div class="prinary-title f-elpsl-1">
+              <div class="primary-title f-elpsl-1">
                 {{hs.name}}
                 <span v-if="hs.alias">{{hs.alias}}</span>
               </div>

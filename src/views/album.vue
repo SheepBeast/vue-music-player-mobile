@@ -29,7 +29,6 @@
 
       <div class="pl-header-wrapper">
         <img :src="album.picUrl" class="pl-header-cover">
-        <!-- <img :src="album.picUrl" class="pl-header-cover" v-photo-browser="{group: 'al' + album.id}"> -->
         <div class="pl-header-info">
           <h4 class="title f-elpsl-2">{{album.name}}</h4>
           <small class="subhead f-elpsl-1">
@@ -57,7 +56,7 @@
           <span class="index">{{idx + 1}}</span>
           <list-item-holder class="dense">
             <list-item-inner>
-              <div class="prinary-title f-elpsl-1">
+              <div class="primary-title f-elpsl-1">
                 {{s.name}}
                 <span v-if="s.alias">{{s.alias}}</span>
               </div>

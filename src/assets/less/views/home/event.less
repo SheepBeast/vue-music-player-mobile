@@ -1,0 +1,68 @@
+.events {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0 !important;
+    .event {
+        padding: 10px 8px;
+        border-bottom: 1px solid #d6d6d6;
+        background-color: #fff;
+        margin-bottom: 20px;
+        .side-left {
+            float: left;
+            margin-right: 10px;
+        }
+        .card {
+            margin-bottom: 0;
+        }
+        .header {
+            padding: 0;
+        }
+        .nickname,
+        .topic {
+            color: rgb(73, 180, 223);
+        }
+        .action {
+            color: rgb(85, 82, 82);
+        }
+        .action-time,
+        .recommend-reason {
+            color: rgba(0, 0, 0, 0.67);
+        }
+        .action-time {
+            float: right;
+        }
+        .message {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .music {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .recommend-reason {
+            line-height: 30px;
+        }
+        @fontSize: 16px;
+        .count {
+            line-height: @fontSize;
+            height: @fontSize;
+            display: inline-block;
+            vertical-align: text-top;
+        }
+        .card-media>.grid>.cell>img {
+            width: 100%;
+        }
+        .card-actions .material-icons,
+        .count {
+            color: rgba(0, 0, 0, 0.7);
+        }
+        .card-actions .material-icons {
+            font-size: @fontSize;
+            vertical-align: text-top;
+            &.reverse {
+                -webkit-transform: scaleX(-1);
+                -ms-transform: scaleX(-1);
+                transform: scaleX(-1);
+            }
+        }
+    }
+}

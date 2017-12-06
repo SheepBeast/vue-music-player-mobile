@@ -14,7 +14,10 @@ const getters = {
       sevt = s._event,
 
       picsIdReg = /==\/\d*\.jpg$/g,
-      picsIdTrimReg = /(==\/)|(\.jpg)/g
+      picsIdTrimReg = /(==\/)|(\.jpg)/g,
+
+      now = Date.now(),
+      today = new Date(now).getDate()
 
     sevt.forEach(({
       id,
@@ -26,7 +29,7 @@ const getters = {
       user: { userId, avatarUrl, nickname }
     }) => {
       let jsonObj = JSON.parse(json),
-        diff = showTime - Date.now(),
+        diff = now - showTime,
         picsUrl = [],
         date,
         song,
@@ -53,17 +56,17 @@ const getters = {
         name: s.name,
         arts: arts.join('/')
       }
-
       if(diff <= 1800000) {
         date = '最近'
       }else if(diff <= 3600000) {
         date = parseInt(diff / 60000) + '分钟前'
-      }else if(diff <= 86400000) {
-        let d = new Date(showTime)
-        date = zFill(d.getHours()) + ':' + zFill(d.getMinutes())
-      }else {
-        let d = new Date(showTime)
-        date = zFill(d.getMonth() + 1) + '月' + zFill(d.getDate()) + '日'
+      }else{
+        let st = new Date(showTime), d = st.getDate()
+        if(d != today) {
+          date = zFill(st.getMonth() + 1) + '月' + zFill(st.getDate()) + '日'
+        }else{
+          date = zFill(st.getHours()) + ':' + zFill(st.getMinutes())
+        }
       }
 
       message = replaceTopic(message)

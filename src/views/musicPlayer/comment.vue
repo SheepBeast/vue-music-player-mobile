@@ -20,13 +20,8 @@
                 <router-link tag="span"  :to="{name: 'user', query: {id: c.user.userId}}" data-toggle="router-link">
                    {{c.user.nickname}}
                 </router-link>
-                <small class="liked">
-                  {{c.likedCount}}&nbsp;&nbsp;
-                  <icon ligature="thumb_up"></icon>
-                </small>
               </div>
               <div class="third-title">{{c.timeString}}</div>
-
               <div v-if="!c.translatedBeReplied" class="message" v-html="c.translatedMessage"></div>
               <div class="message" v-else>
                 回复

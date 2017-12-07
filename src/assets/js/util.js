@@ -79,6 +79,33 @@ export function stop() {
   window.stop ? window.stop() : document.execCommand('stop')
 }
 
+
+export function timeDiff(time, now = Date.now()) {
+  if (!time) {
+    return false
+  }
+  let diff = now - time, str = ""
+
+  if (diff <= 1800000) {
+    str = '最近'
+  } else if (diff <= 3600000) {
+    str = parseInt(diff / 60000) + '分钟前'
+  } else {
+    let t = new Date(time), d = t.getDate(), dn = new Date(now), today = dn.getDate()
+    if (d != today) {
+      let y = t.getFullYear()
+      if (y < dn.getFullYear()) {
+        str = y + '年'
+      }
+      str += zFill(t.getMonth() + 1) + '月' + zFill(t.getDate()) + '日'
+    } else {
+      str = zFill(t.getHours()) + ':' + zFill(t.getMinutes())
+    }
+  }
+
+  return str
+}
+
 export default {
   timeTransform,
   zFill,
@@ -86,5 +113,6 @@ export default {
   createService,
   deviceInfo,
   replaceEmoji,
-  stop
+  stop,
+  timeDiff
 }

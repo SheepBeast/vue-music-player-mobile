@@ -1,4 +1,4 @@
-import { timeTransform, replaceEmoji } from '../../assets/js/util'
+import { timeTransform, replaceEmoji, timeDiff } from '../../assets/js/util'
 import pipe from '../../views/musicPlayer/pipe'
 import { API_MUSIC_DETAIL, API_MUSIC_COMMENT, API_MUSIC_URL, API_MUSIC_LYRIC, API_ALBUM } from '../../api'
 
@@ -199,9 +199,10 @@ const mutations = {
   },
 
   addSong(s, { song: { id, name, ar, al }, url, comments, total, more, lyric, supported, done }) {
+    let now = Date.now()
+
     comments.forEach(c => {
-      let d = new Date(c.time)
-      c.timeString = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日'
+      c.timeString = timeDiff(c.time, now)
       c.translatedMessage = replaceEmoji(c.content)
 
       if (c.beReplied.length > 0) {
@@ -215,13 +216,14 @@ const mutations = {
         }
       }
     })
+
     s._playlist.push({
       id,
       name,
       ar,
       al,
       url,
-      comments,
+      comments: comments.sort(() => 0.5 - Math.random()),
       total,
       more,
       lyric,

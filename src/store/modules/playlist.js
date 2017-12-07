@@ -1,4 +1,4 @@
-import { replaceEmoji } from '../../assets/js/util'
+import { replaceEmoji, timeDiff } from '../../assets/js/util'
 import { API_PLAYLIST_DETAIL, API_PLAYLIST_COMMENT } from '../../api'
 import Cache from '../../cache'
 
@@ -16,9 +16,9 @@ const getters = {
 
 const mutations = {
   setPlaylist(s, { playlist, comments, done }) {
+    let now = Date.now()
     comments.forEach(c => {
-      let d = new Date(c.time)
-      c.timeString = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日'
+      c.timeString = timeDiff(c.time, now)
       c.translatedMessage = replaceEmoji(c.content)
 
       if (c.beReplied.length > 0) {
@@ -32,7 +32,7 @@ const mutations = {
         }
       }
     })
-    playlist.comments = comments
+    playlist.comments = comments.sort(() => 0.5 - Math.random())
     s._playlist = playlist
     done()
   }

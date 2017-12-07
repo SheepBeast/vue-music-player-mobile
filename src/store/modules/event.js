@@ -1,4 +1,4 @@
-import { replaceEmoji, zFill, replaceTopic } from '../../assets/js/util'
+import { replaceEmoji, timeDiff, replaceTopic } from '../../assets/js/util'
 import { API_EVENT } from '../../api'
 
 const state = {
@@ -16,8 +16,7 @@ const getters = {
       picsIdReg = /==\/\d*\.jpg$/g,
       picsIdTrimReg = /(==\/)|(\.jpg)/g,
 
-      now = Date.now(),
-      today = new Date(now).getDate()
+      now = Date.now()
 
     sevt.forEach(({
       id,
@@ -29,9 +28,7 @@ const getters = {
       user: { userId, avatarUrl, nickname }
     }) => {
       let jsonObj = JSON.parse(json),
-        diff = now - showTime,
         picsUrl = [],
-        date,
         song,
         message = jsonObj.msg
 
@@ -56,22 +53,10 @@ const getters = {
         name: s.name,
         arts: arts.join('/')
       }
-      if(diff <= 1800000) {
-        date = '最近'
-      }else if(diff <= 3600000) {
-        date = parseInt(diff / 60000) + '分钟前'
-      }else{
-        let st = new Date(showTime), d = st.getDate()
-        if(d != today) {
-          date = zFill(st.getMonth() + 1) + '月' + zFill(st.getDate()) + '日'
-        }else{
-          date = zFill(st.getHours()) + ':' + zFill(st.getMinutes())
-        }
-      }
 
       message = replaceTopic(message)
       message = replaceEmoji(message)
-      
+
       evts.push({
         id,
         user: {
@@ -80,7 +65,7 @@ const getters = {
           nickname
         },
         action: '分享单曲',
-        date,
+        date: timeDiff(showTime, now),
         message,
         picsUrl,
         song,

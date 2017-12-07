@@ -10,13 +10,26 @@ import pipe from "./pipe";
 export default {
   data() {
     return {
-      activeIndex: 0,
-      indicator: null
+      activeIndex: -1,
+      prev: -1,
+      indicator: null,
+      isFirst: true
     };
   },
   methods: {
-    change(index) {
-      this.$emit("tabs:beforeChange", this.activeIndex);
+    change(index, emit) {
+      if (index == this.activeIndex) {
+        return false;
+      }
+      if (!this.isFirst) {
+        this.$emit("tabs:beforechange", {
+          next: index,
+          prev: this.activeIndex
+        });
+      } else {
+        this.isFirst = false;
+      }
+
       let label = this.$children[index].$el.children[0],
         left = label.offsetLeft,
         width = label.offsetWidth,
@@ -25,24 +38,21 @@ export default {
       indicatorStyles.left = left + "px";
       indicatorStyles.width = width + "px";
 
+      this.prev = this.activeIndex;
       this.activeIndex = index;
     },
     afterchange() {
-      this.$emit("tabs:afterChange", this.activeIndex);
+      if (!this.isFirst) {
+        this.$emit("tabs:afterchange", {
+          next: this.activeIndex,
+          prev: this.prev
+        });
+      }
     },
     init() {
       this.indicator = this.$refs.indicator;
-
-      pipe.$on("tabs:change", index => {
-        this.change(index);
-      });
-      setTimeout(
-        self => {
-          self.change(0);
-        },
-        1000,
-        this
-      );
+      pipe.$on("tabs:change", index => this.change(index));
+      this.change(0);
       this.$emit("tabs:init", this);
     }
   },

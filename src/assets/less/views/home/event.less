@@ -16,10 +16,7 @@
         .header {
             padding: 0;
         }
-        .nickname,
-        .topic {
-            color: rgb(73, 180, 223);
-        }
+
         .action {
             color: rgb(85, 82, 82);
         }
@@ -31,12 +28,15 @@
             float: right;
         }
         .message {
-            margin-top: 8px;
             margin-bottom: 8px;
-            font-size: 14px;
+            font-size: 13px;
         }
         .music {
             background-color: rgba(0, 0, 0, 0.05);
+            padding-left: 4px;
+            .toolbar-inner {
+                margin-left: 10px;
+            }
         }
         .recommend-reason {
             line-height: 30px;
@@ -46,7 +46,7 @@
             line-height: @fontSize;
             height: @fontSize;
             display: inline-block;
-            vertical-align: text-top;
+            vertical-align: middle;
         }
         .card-media>.grid>.cell>img {
             width: 100%;
@@ -57,7 +57,7 @@
         }
         .card-actions .material-icons {
             font-size: @fontSize;
-            vertical-align: text-top;
+            vertical-align: middle;
             &.reverse {
                 -webkit-transform: scaleX(-1);
                 -ms-transform: scaleX(-1);

@@ -23,6 +23,7 @@ body {
     flex-shrink: 0;
     -webkit-perspective: 400;
     perspective: 400;
+    width: 50%;
 }
 
 .iphone {
@@ -159,8 +160,7 @@ body {
 .readme {
     font-family: '微软雅黑';
     -webkit-font-smoothing: antialiased;
-    margin: 200px auto 0 20px;
-    width: 500px;
+    margin-top: 200px;
 }
 
 .readme .intro {

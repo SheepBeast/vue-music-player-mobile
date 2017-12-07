@@ -105,6 +105,9 @@ const throttle = function (callback, delay) {
   }
 }
 
+// 添加主动懒加载的操作方式
+Vue.$lazyload = Vue.prototype.$lazyload = lazyload
+
 export default {
   inserted: cache,
   updated: cache

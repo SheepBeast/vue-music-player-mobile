@@ -7,7 +7,7 @@
         <list-item @click.native="cut(i)" v-for="(p, i) in playlist" :key="p.id" :style="{color: playIndex == i ? 'rgba(255, 69, 0, 0.8)' : '#000'}">
           <list-item-holder class="dense">
             <list-item-inner>
-              <div class="primary-title">
+              <div class="primary-title f-elpsl-1">
                 {{p.name}} -
                 <small>{{p.ar[0].name}}</small>
                 <icon ligature="close" class="close" @click.native="remove(i)"></icon>

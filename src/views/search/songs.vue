@@ -10,9 +10,7 @@
         <router-link tag="div" class="list-item-holder middle" :to="{name: 'album', query: {id: multi
         .album.id}}">
           <list-item-inner>
-            <div class="primary-title f-elpsl-1">
-              专辑：{{multi.album.name}}
-            </div>
+            <div class="primary-title f-elpsl-1">专辑：{{multi.album.name}}</div>
             <div class="third-title f-elpsl-1">{{multi.album.artist}}</div>
           </list-item-inner>
         <icon ligature="navigate_next"></icon>

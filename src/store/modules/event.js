@@ -81,18 +81,19 @@ const getters = {
 }
 
 const mutations = {
-  setEvent(s, { event }) {
+  setEvent(s, { event, done }) {
     s._event = event
+    done && done()
   }
 }
 
 const actions = {
-  getEvent({ commit, getters }) {
+  getEvent({ commit, getters }, { done }) {
     if (getters.event) {
       return false
     }
     Vue.http.get(API_EVENT).then(({ body: { event } }) => {
-      commit('setEvent', { event })
+      commit('setEvent', { event, done })
     })
   }
 }

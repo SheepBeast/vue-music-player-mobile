@@ -42,18 +42,19 @@ const getters = {
 }
 
 const mutations = {
-  setRecommend(s, { recommend }) {
+  setRecommend(s, { recommend, done }) {
     s._recommend = recommend
+    done && done()
   }
 }
 
 const actions = {
-  getRecommend({ commit, getters }) {
+  getRecommend({ commit, getters }, { done }) {
     if (getters.recommend) {
       return false
     }
     Vue.http.get(API_RECOMMEND_SONGS).then(({ body: { recommend } }) => {
-      commit('setRecommend', { recommend })
+      commit('setRecommend', { recommend, done })
     })
   }
 }

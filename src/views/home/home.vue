@@ -27,36 +27,63 @@
 </template>
 
 <script>
-import find from "./find";
-// import recommend from './recommend'
+  import find from "./find";
+  // import recommend from './recommend'
 
-const recommend = resolve => require(["./recommend"], resolve),
-  event = resolve => require(["./event"], resolve);
+  const recommend = resolve => require(["./recommend"], resolve),
+    event = resolve => require(["./event"], resolve);
 
-export default {
-  name: "home",
-  data() {
-    return {
-      currentView: "find",
-      tabs: [
-        { en: "find", zh: "发现" },
-        { en: "recommend", zh: "推荐" },
-        { en: "event", zh: "动态" }
-      ],
-      tabTransition: null
-    };
-  },
-  components: {
-    find,
-    recommend,
-    event
-  },
-  computed: Vuex.mapGetters("musicPlayer", ["playing", "currentPlays"]),
-  methods: {
-    viewChange({ next, prev }) {
-      this.tabTransition = `tab-slide-${next > prev ? "left" : "right"}`;
-      this.currentView = this.tabs[next].en;
+  export default {
+    name: "home",
+    data() {
+      return {
+        currentView: "find",
+        tabs: [
+          { en: "find", zh: "发现", initialized: true },
+          {
+            en: "recommend",
+            zh: "推荐",
+            initialized: false,
+            preload({ dispatch }, payload) {
+              dispatch('recommend/getRecommend', payload)
+            }
+          },
+          {
+            en: "event",
+            zh: "动态",
+            initialized: false,
+            preload({ dispatch }, payload) {
+              dispatch("event/getEvent", payload);
+            }
+          }
+        ],
+        tabTransition: null
+      };
+    },
+    components: {
+      find,
+      recommend,
+      event
+    },
+    computed: Vuex.mapGetters("musicPlayer", ["playing", "currentPlays"]),
+    methods: {
+      viewChange({ next, prev, fire }) {
+        this.tabTransition = `tab-slide-${next > prev ? "left" : "right"}`;
+
+        let comp = this.tabs[next], self = this,
+          done = function () {
+            Vue.$loadingTip.hide()
+            fire()
+            self.currentView = self.tabs[next].en;
+          }
+        if (!comp.initialized) {
+          Vue.$loadingTip.show()
+          comp.preload(this.$store, { done })
+          comp.initialized = true
+        } else {
+          done()
+        }
+      }
     }
-  }
-};
+  };
 </script>

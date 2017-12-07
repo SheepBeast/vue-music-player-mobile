@@ -31,14 +31,18 @@
     .swiper {
         top: 50%;
         -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        .swiper-slide>img {
+            cursor: move;
+        }
     }
 }
 
 .photo-browser-origin-image {
     -webkit-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
+    cursor: pointer;
 }
 
 // photo-browser-zoom-in

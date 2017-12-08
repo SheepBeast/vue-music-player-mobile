@@ -32,14 +32,13 @@
 
 ### 下载安装
 ``` shell
-git clone https://github.com/SheepBeast/vue-music-player.git
-
-npm install
+$ git clone https://github.com/SheepBeast/vue-music-player.git
+$ npm install
 ```
 
 ### 运行
 ``` shell
-npm run dev
+$ npm run dev
 ```
 访问地址：[http://localhost:8080/](http://localhost:8080/)
 

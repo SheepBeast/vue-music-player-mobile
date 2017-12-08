@@ -5,7 +5,7 @@
 ### 如何查看
 #### 下载
 ``` shell
-git clone https://github.com/SheepBeast/vue-netease-cloud-music.git
+git clone https://github.com/SheepBeast/vue-music-player.git
 ```
 
 #### 安装
@@ -25,7 +25,8 @@ http://localhost:8080/static/index.html
 1.  基于[vue](https://cn.vuejs.org/) + [vuex](https://vuex.vuejs.org/zh-cn/) + [vue-router](https://router.vuejs.org/zh-cn/) + [vue-resource](https://www.npmjs.com/package/vue-resource)开发
 2.  实现专辑、歌单、歌手、用户等信息的展示和音乐播放功能
 3.  重构router.push和router.back，实现数据预加载和灵活的转场
-4.  合理缓存数据，减少HTTP请求数和页面渲染时间
+4.  自定义组件、指令（如懒加载）、插件（如图片浏览器）等，减少第三方依赖项
+5.  合理缓存数据，减少HTTP请求数和页面渲染时间
 
 ### DEMO
 #### 首页

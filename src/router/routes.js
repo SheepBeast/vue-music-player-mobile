@@ -17,7 +17,7 @@ export default [
     component: resolve => require(['../views/musicPlayer/interface.vue'], resolve),
     meta: {
       preload({ dispatch }, payload) {
-        dispatch('musicPlayer/getSongDetail', payload)
+        dispatch('musicPlayer/fetch', payload)
       }
     }
   },
@@ -27,7 +27,7 @@ export default [
     component: resolve => require(['../views/playlist.vue'], resolve),
     meta: {
       preload({ dispatch }, payload) {
-        dispatch('playlist/getPlaylist', payload)
+        dispatch('playlist/fetch', payload)
       }
     }
   },
@@ -37,7 +37,7 @@ export default [
     component: resolve => require(['../views/album.vue'], resolve),
     meta: {
       preload({ dispatch }, payload) {
-        dispatch('album/getAlbum', payload)
+        dispatch('album/fetch', payload)
       }
     }
   },
@@ -47,7 +47,7 @@ export default [
     component: resolve => require(['../views/artist.vue'], resolve),
     meta: {
       preload({ dispatch }, payload) {
-        dispatch('artist/getArtist', payload)
+        dispatch('artist/fetch', payload)
       }
     }
   },
@@ -57,7 +57,7 @@ export default [
     component: resolve => require(['../views/user.vue'], resolve),
     meta: {
       preload({ dispatch }, payload) {
-        dispatch('user/getUser', payload)
+        dispatch('user/fetch', payload)
       }
     }
   },

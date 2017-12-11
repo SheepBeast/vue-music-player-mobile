@@ -106,6 +106,25 @@ export function timeDiff(time, now = Date.now()) {
   return str
 }
 
+export function translateComment(cmt, now = Date.now()) {
+  cmt.forEach(c=>{
+    c.timeString = timeDiff(c.time, now)
+    c.translatedMessage = replaceEmoji(c.content)
+
+    if (c.beReplied.length > 0) {
+      let rep = c.beReplied[0]
+      c.translatedBeReplied = {
+        user: {
+          id: rep.user.userId,
+          nickname: rep.user.nickname
+        },
+        content: '@' + rep.user.nickname + '：' + replaceEmoji(rep.content)
+      }
+    }
+  })
+  return cmt
+}
+
 export default {
   timeTransform,
   zFill,
@@ -114,5 +133,6 @@ export default {
   deviceInfo,
   replaceEmoji,
   stop,
-  timeDiff
+  timeDiff,
+  translateComment
 }

@@ -1,4 +1,4 @@
-import { timeTransform, replaceEmoji, timeDiff } from '../../assets/js/util'
+import { timeTransform, replaceEmoji, timeDiff, translateComment } from '../../assets/js/util'
 import pipe from '../../views/musicPlayer/pipe'
 import { API_MUSIC_DETAIL, API_MUSIC_COMMENT, API_MUSIC_URL, API_MUSIC_LYRIC, API_ALBUM } from '../../api'
 
@@ -24,12 +24,8 @@ const state = {
 }
 
 const getters = {
-  currentTime(s) {
-    return s._currentTime
-  },
-  duration(s) {
-    return s._duration
-  },
+  currentTime: s => s._currentTime,
+  duration: s => s._duration,
   currentTimeString(s, getters) {
     if (getters.lyric[s._nextCursor]) {
       let latestLyric = getters.lyric[s._nextCursor]
@@ -40,30 +36,14 @@ const getters = {
     }
     return timeTransform(s._currentTime)
   },
-  durationString(s) {
-    return timeTransform(s._duration)
-  },
-  playing(s) {
-    return s._playing
-  },
-  currentPlays(s) {
-    return s._playlist[s._playIndex]
-  },
-  playlist(s) {
-    return s._playlist
-  },
-  playIndex(s) {
-    return s._playIndex
-  },
-  mode(s) {
-    return s._mode
-  },
-  switch_button(s) {
-    return !s._playing ? 'play_arrow' : 'pause'
-  },
-  recentlyPlaying(s) {
-    return s._recentlyPlaying
-  },
+  durationString: s => timeTransform(s._duration),
+  playing: s => s._playing,
+  currentPlays: s => s._playlist[s._playIndex],
+  playlist: s => s._playlist,
+  playIndex: s => s._playIndex,
+  mode: s => s._mode,
+  switch_button: s => !s._playing ? 'play_arrow' : 'pause',
+  recentlyPlaying: s => s._recentlyPlaying,
   lyric(s) {
     let _lyric = s._playlist[s._playIndex].lyric
     if (_lyric) {
@@ -96,18 +76,10 @@ const getters = {
     }
     return []
   },
-  currentLyricLine(s) {
-    return s._currentLyricLine
-  },
-  nextCursor(s) {
-    return s._nextCursor
-  },
-  musicUrl(s) {
-    return s._musicUrl
-  },
-  supported(s) {
-    return s._supported
-  }
+  currentLyricLine: s => s._currentLyricLine,
+  nextCursor: s => s._nextCursor,
+  musicUrl: s => s._musicUrl,
+  supported: s => s._supported
 }
 const mutations = {
   setMode(s) {
@@ -199,31 +171,13 @@ const mutations = {
   },
 
   addSong(s, { song: { id, name, ar, al }, url, comments, total, more, lyric, supported, done }) {
-    let now = Date.now()
-
-    comments.forEach(c => {
-      c.timeString = timeDiff(c.time, now)
-      c.translatedMessage = replaceEmoji(c.content)
-
-      if (c.beReplied.length > 0) {
-        let rep = c.beReplied[0]
-        c.translatedBeReplied = {
-          user: {
-            id: rep.user.userId,
-            nickname: rep.user.nickname
-          },
-          content: '@' + rep.user.nickname + '：' + replaceEmoji(rep.content)
-        }
-      }
-    })
-
     s._playlist.push({
       id,
       name,
       ar,
       al,
       url,
-      comments: comments.sort(() => 0.5 - Math.random()),
+      comments: translateComment(comments).sort(() => 0.5 - Math.random()),
       total,
       more,
       lyric,
@@ -270,7 +224,7 @@ const mutations = {
   }
 }
 const actions = {
-  getSongDetail({ commit, getters }, { id, done }) {
+  async fetch({ commit, getters }, { id, done }) {
     let hasSong = false
     if (!(!getters.currentPlays || (id && getters.currentPlays.id != id))) {
       hasSong = true
@@ -283,44 +237,41 @@ const actions = {
     }
     if (hasSong) {
       done()
-      return false
     } else {
       let p1 = Vue.http.get(`${API_MUSIC_DETAIL}?ids=${id}`),
         p2 = Vue.http.get(`${API_MUSIC_URL}?id=${id}`),
         p3 = Vue.http.get(`${API_MUSIC_COMMENT}?limit=20&id=${id}`),
-        p4 = Vue.http.get(`${API_MUSIC_LYRIC}?id=${id}`)
+        p4 = Vue.http.get(`${API_MUSIC_LYRIC}?id=${id}`),
 
-      Promise.all([p1, p2, p3, p4])
-        .then(res => {
-          let song = res[0].body.songs[0], url = res[1].body.data[0].url, lrc
+       res = await Promise.all([p1, p2, p3, p4]),
+       song = res[0].body.songs[0], 
+       url = res[1].body.data[0].url, 
+       lrc
+      
+      // 设置歌曲信息
+      commit('addSong', {
+        song: res[0].body.songs[0],
+        url,
+        comments: res[2].body.comments,
+        total: res[2].body.total,
+        more: res[2].body.more,
+        lyric: (lrc = res[3].body.lrc) && lrc.lyric || null,
+        supported: true,
+        done
+      })
 
-          commit('addSong', {
-            song: res[0].body.songs[0],
-            url,
-            comments: res[2].body.comments,
-            total: res[2].body.total,
-            more: res[2].body.more,
-            lyric: (lrc = res[3].body.lrc) && lrc.lyric || null,
-            supported: true,
-            done
-          })
-          return url ? new Promise(function (resolve, reject) {
-            Vue.http.get(`${API_ALBUM}?id=${song.al.id}`).then(res => {
-              if (res.body.album.status != -3) {
-                resolve(url)
-              } else {
-                reject()
-              }
-            })
-          }) : new Promise(function (resolve, reject) {
-            reject()
-          })
-        })
-        .catch(err => {
+      // 即使设置歌曲但还是需要判断是否支持播放
+      // 如果不支持则页面只显示歌曲信息而提示不能播放
+      // 避免直接显示空白页
+      if(url) {
+        let resp = await Vue.http.get(`${API_ALBUM}?id=${song.al.id}`)
+        if (resp.body.album.status == -3) {
           pipe.$emit('unsupported')
-        })
+        }
+      }else{
+        pipe.$emit('unsupported')
+      }
     }
-
   }
 }
 

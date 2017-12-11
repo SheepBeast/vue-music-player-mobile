@@ -1,6 +1,5 @@
 let eventsHub = {},
-  count = 0,
-  regScale = /scale.*\(.*\)/ig
+  count = 0
   
 const zoom = function zoom(el, binding){
   let state = Object.assign({

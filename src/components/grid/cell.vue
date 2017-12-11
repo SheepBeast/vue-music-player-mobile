@@ -12,7 +12,7 @@ export default {
       required: true,
       validator(val) {
         return (
-          [10, 20, 25, 33, 40, 50, 60, 66, 75, 80, 90, 100].indexOf(val) > -1
+          [10, 20, 25, 33, 40, 50, 60, 66, 75, 80, 90, 100].includes(val)
         );
       }
     }

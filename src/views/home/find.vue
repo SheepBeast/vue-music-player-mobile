@@ -44,8 +44,9 @@
   export default {
     name: "find",
     beforeCreate() {
-      this.$store.dispatch("find/getNewSong");
-      this.$store.dispatch("find/getPlaylist");
+      // this.$store.dispatch("find/getNewSong");
+      // this.$store.dispatch("find/getPlaylist");
+      this.$store.dispatch("find/fetch")
     },
     computed: Vuex.mapGetters("find", ["playlist", "newSong"])
   };

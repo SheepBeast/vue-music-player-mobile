@@ -46,10 +46,12 @@
         标签：
         <span v-for="t in playlist.tags" :key="t">{{t}}</span>
       </div>
-      <div class="description" v-if="playlist.description" :class="{'f-elpsl-2': !showDesc}" @click="toggle">
-        简介：{{playlist.description}}
-      </div>
-      <icon v-if="playlist.description" :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="expand"></icon>
+      <template v-if="playlist.description">
+        <div class="description" v-if="playlist.description" :class="{'f-elpsl-2': !showDesc}" @click="toggle">
+          简介：{{playlist.description}}
+        </div>
+        <icon v-if="playlist.description" :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="toggle"></icon>
+      </template>
     </section>
 
     <section v-if="playlist.tracks.length > 0">
@@ -71,10 +73,10 @@
       </list>
     </section>
 
-    <section class="comment" v-if="playlist.comments.length > 0">
+    <section class="comment" v-if="comments">
       <h4 class="cmt-title">评论</h4>
       <list>
-        <list-item v-for="c in playlist.comments" :key="c.commentId">
+        <list-item v-for="c in comments" :key="c.commentId">
           <router-link :to="{name: 'user', query: {id: c.user.userId}}" class="avatar" tag="div">
             <img class="lazyload" v-lazyload="{src: c.user.avatarUrl, wrapper: '#playlist'}">
           </router-link>
@@ -109,17 +111,19 @@
 </template>
 
 <script>
+import mixins from "./mixins";
 export default {
   data() {
     return {
       showDesc: false
     };
   },
+  mixins: [mixins],
   methods: {
     toggle() {
       this.showDesc = !this.showDesc;
     }
   },
-  computed: Vuex.mapGetters("playlist", ["playlist"])
+  computed: Vuex.mapGetters("playlist", ["playlist", "comments"])
 };
 </script>

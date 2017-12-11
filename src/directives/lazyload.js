@@ -26,16 +26,15 @@ const cache = function (el, binding) {
     src = val.src
     wrapper = val.wrapper
   }
-  if (srcHub.indexOf(src) > -1) {
+  if (srcHub.includes(src)) {
     el.src = src
   } else {
     el.src = def;
-    (loading ? bufferHub : imagesHub).push({ id, el, src });
-    ++id
+    (loading ? bufferHub : imagesHub).push({ id: id++, el, src });
   }
   if (wrapper) {
     let wrap = document.querySelector(wrapper)
-    if (wrap && wrapHub.indexOf(wrap) == -1) {
+    if (wrap && !wrapHub.includes(wrap)) {
       wrap.addEventListener('load', lazyload)
       wrap.addEventListener('scroll', throttle(lazyload, 100))
       wrapHub.push(wrap)
@@ -64,12 +63,11 @@ const lazyload = function lazyload() {
 
     if (rect.top > range[0] && rect.top <= range[1] || rect.bottom > range[0] && rect.bottom <= range[1]) {
       el.onload = function () {
-        el.onload = null
         el.style.opacity = 1
+        el.onload = null
       }
       el.src = src
 
-      // el.style.opacity = 1
       rmArray.push(id)
     }
   }
@@ -77,7 +75,7 @@ const lazyload = function lazyload() {
   // 筛选未加载的图片元素
   if (rmArray.length > 0) {
     srcHub = srcHub.concat(rmArray)
-    imagesHub = imagesHub.filter(img => rmArray.indexOf(img.id) == -1).concat(bufferHub.slice())
+    imagesHub = imagesHub.filter(img => !rmArray.includes(img.id)).concat(bufferHub.slice())
     bufferHub.length = 0
   }
 

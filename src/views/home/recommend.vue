@@ -1,11 +1,11 @@
 <template>
   <page-content style="padding-top: 0" v-if="recommend">
     <div class="recommend">
-      <section class="banner" v-if="banner">
-        <router-link :to="{name: 'musicPlayer', query: {id: banner.sid}}" tag="img" :src="banner.picUrl"></router-link>
+      <section class="banner">
+        <router-link :to="{name: 'musicPlayer', query: {id: recommend.banner.id}}" tag="img" :src="recommend.banner.picUrl"></router-link>
       </section>
       <list>
-        <list-item v-for="(tl, idx) in recommend" :key="tl.id">
+        <list-item v-for="(tl, idx) in recommend.list" :key="tl.id">
           <span class="index">{{idx + 1}}</span>
           <router-link :to="{name: 'musicPlayer', query: {id: tl.id}}" tag="div" class="list-item-holder dense">
             <list-item-inner>

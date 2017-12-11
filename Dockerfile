@@ -8,9 +8,9 @@ WORKDIR /usr/local/app
 
 RUN echo 'registry=https://registry.npm.taobao.org' > /root/.npmrc
 
-RUN git clone https://github.com/SheepBeast/vue-netease-cloud-music.git
+RUN git clone https://github.com/SheepBeast/vue-music-player.git
 
-WORKDIR vue-netease-cloud-music/
+WORKDIR vue-music-player/
 
 RUN npm install
 

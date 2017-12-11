@@ -74,6 +74,7 @@ import comment from "./comment";
 import pipe from "./pipe";
 import playlist from "./playlist";
 import { deviceInfo } from "../../assets/js/util";
+import mixins from "../mixins";
 
 export default {
   data() {
@@ -84,6 +85,7 @@ export default {
       notDisplayLyric: true
     };
   },
+  mixins: [mixins],
   computed: {
     ...Vuex.mapGetters("musicPlayer", [
       "mode",
@@ -97,7 +99,7 @@ export default {
     ]),
     computedCoverHeight() {
       return {
-        height: deviceInfo.width + "px"
+        height: `${deviceInfo.width}px`
       };
     }
   },

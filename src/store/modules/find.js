@@ -2,55 +2,42 @@ import { API_PERSONALIZED, API_PERSONALIZED_NEWSONG } from '../../api'
 
 const state = {
   _playlist: null,
-  _newSong: null
+  _newSongs: null
 }
 
 const getters = {
-  playlist(s) {
-    return s._playlist
-  },
+  playlist: s => s._playlist,
   newSong(s) {
-    if (!s._newSong) {
-      return false
-    }
-    let ns = [], _ns = s._newSong//.slice(0, 6)
-
-    _ns.forEach(({ id, name, song: album }) => {
-      let arts = []
-      album.artists.forEach(({ name }) => {
-        arts.push(name)
-      })
-      ns.push({ id, name, artists: arts.join('/'), album: album.name })
-    })
-    return ns
+    return !s._newSongs ?
+      false :
+      s._newSongs.map(({ id, name, song: { album } }) => ({
+        id,
+        name,
+        album: album.name,
+        artists: album.artists.map(({ name }) => name).join('/')
+      }))
   }
 }
 
 const mutations = {
-  setPlaylist(s, { playlist }) {
+  setFind(s, { playlist, newSongs }) {
     s._playlist = playlist
-  },
-  setNewSong(s, { newSong }) {
-    s._newSong = newSong
+    s._newSongs = newSongs
   }
 }
 
 const actions = {
-  getPlaylist({ commit, getters }) {
-    if (getters.playlist) {
-      return false
+  async fetch({ commit, getters }) {
+    if (!getters.playlist) {
+      let p1 = Vue.http.get(API_PERSONALIZED),
+        p2 = Vue.http.get(API_PERSONALIZED_NEWSONG),
+        fetched = await Promise.all([p1, p2])
+
+      commit('setFind', {
+        playlist: fetched[0].body.result,
+        newSongs: fetched[1].body.result
+      })
     }
-    Vue.http.get(API_PERSONALIZED).then(({ body: { result } }) => {
-      commit('setPlaylist', { playlist: result })
-    })
-  },
-  getNewSong({ commit, getters }) {
-    if (getters.newSong) {
-      return false
-    }
-    Vue.http.get(API_PERSONALIZED_NEWSONG).then(({ body: { result } }) => {
-      commit('setNewSong', { newSong: result })
-    })
   }
 }
 

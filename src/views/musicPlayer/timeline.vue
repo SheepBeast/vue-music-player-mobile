@@ -1,5 +1,5 @@
 <template>
-  <div class="timeline" ref="timeline">
+  <div class="timeline">
     <div class="thumb shadow-3d"
       :style="{ left: currentPostion + 'px' }"
       @mousedown="mousedown"
@@ -101,7 +101,7 @@ export default {
       });
     },
     init() {
-      this.max = this.$refs.timeline.offsetWidth;
+      this.max = this.$el.offsetWidth
       if (
         this.defaultValue &&
         this.defaultValue >= this.minValue &&

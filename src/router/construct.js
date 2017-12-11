@@ -37,15 +37,14 @@ export default function construct(router /* VueRouter类的实例 */) {
 
   // push
   proto._push = proto.push
-  proto.push = function () {
+  proto.push = async function () {
     let args = arguments
     // 设置转场方向
     proto.transfer = SLIDE_LEFT
     // 预加载数据
-    applyPreloadFn(args[0]).then(function () {
-      // 执行转场
-      proto._push.apply(router, args)
-    })
+    await applyPreloadFn(args[0])
+    // 执行转场
+    proto._push.apply(router, args)
   }
 
   // back

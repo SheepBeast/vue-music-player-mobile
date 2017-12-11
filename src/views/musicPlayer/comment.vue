@@ -52,14 +52,12 @@ export default {
   },
   computed: {
     ...Vuex.mapGetters("musicPlayer", ["currentPlays"]),
-    contentHeight() {
-      return deviceInfo.height - 54 + "px";
-    },
+    contentHeight: () => deviceInfo.height - 54 + "px",
     computedTop() {
       if (!this.fixedLayerTop) {
         return "";
       }
-      return (this.active ? 54 : this.fixedLayerTop) + "px";
+      return `${this.active ? 54 : this.fixedLayerTop}px`;
     }
   },
   methods: {

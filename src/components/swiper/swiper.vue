@@ -1,5 +1,5 @@
 <script>
-import {deviceInfo} from '../../assets/js/util'
+import { deviceInfo } from "../../assets/js/util";
 export default {
   render(h) {
     let swiperContainerEl,
@@ -38,7 +38,7 @@ export default {
         style: {
           transform: `translateX(${-this.activeIndex * 100 + "%"})`
         },
-        ref: 'wrapper'
+        ref: "wrapper"
       },
       [this.$slots.default]
     );
@@ -78,7 +78,7 @@ export default {
       isSliding: false,
       tmp: {
         pageX: null,
-          startTime: null
+        startTime: null
       },
       timer: null
     };
@@ -94,7 +94,7 @@ export default {
       this.tmp.startTime = Date.now();
     },
     mouseup(e) {
-      e.stopPropagation()
+      e.stopPropagation();
       let offset = e.pageX - this.tmp.pageX;
 
       // 若在第一张幻灯片时向左滑动或在最后一张幻灯片向右滑动都无效
@@ -114,7 +114,7 @@ export default {
         nextIndex = offset > 0 ? this.activeIndex - 1 : this.activeIndex + 1;
         this.slide(nextIndex, "touch");
       } else {
-        this.$emit('swiper:noop')
+        this.$emit("swiper:noop");
         this.autoPlay();
       }
     },
@@ -136,7 +136,7 @@ export default {
         }
       }
       this.activeIndex = nextIndex;
-      this.tmp.offset = nextIndex * deviceInfo.width
+      this.tmp.offset = nextIndex * deviceInfo.width;
       this.isSliding = false;
     },
     autoPlay() {

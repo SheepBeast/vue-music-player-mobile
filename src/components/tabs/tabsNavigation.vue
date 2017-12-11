@@ -13,7 +13,8 @@
         activeIndex: -1,
         prevIndex: -1,
         indicator: null,
-        isFirst: true
+        indicatorStyles: null,
+        initailized: false
       };
     },
     methods: {
@@ -27,11 +28,11 @@
           p = new Promise((resolve, reject) => {
             fire = resolve
           }).then((sign) => {
-            if (typeof sign == 'undefined' || !!sign) {
+            if (sign == undefined || !!sign) {
               let label = self.$children[index].$el.children[0],
                 left = label.offsetLeft,
                 width = label.offsetWidth,
-                indicatorStyles = self.indicator.style;
+                indicatorStyles = this.indicatorStyles;
 
               indicatorStyles.left = left + "px";
               indicatorStyles.width = width + "px";
@@ -41,19 +42,19 @@
             }
           })
 
-        if (!this.isFirst) {
+        if (this.initailized) {
           this.$emit("tabs:beforechange", {
             next: index,
             prev: this.activeIndex,
             fire
           });
         } else {
-          this.isFirst = false;
+          this.initailized = true;
           fire()
         }
       },
       afterchange() {
-        if (!this.isFirst) {
+        if (this.initailized) {
           this.$emit("tabs:afterchange", {
             next: this.activeIndex,
             prev: this.prevIndex
@@ -62,6 +63,7 @@
       },
       init() {
         this.indicator = this.$refs.indicator;
+        this.indicatorStyles = this.indicator.style;
         pipe.$on("tabs:change", index => this.change(index));
         this.change(0);
         this.$emit("tabs:init", this);

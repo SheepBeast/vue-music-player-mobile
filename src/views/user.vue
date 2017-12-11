@@ -29,7 +29,7 @@
       <div class="u-wrapper">
         <grid class="text-center" style="align-items: center;">
           <cell :span="33">
-            {{user.listenSongs}}
+            {{listenSongs}}
             <div class="u-header-count">听歌数</div>
           </cell>
           <cell :span="33">
@@ -70,8 +70,10 @@
 </template>
 
 <script>
+import mixins from './mixins'
 export default {
-  computed: Vuex.mapGetters("user", ["user", "playlist"]),
+  mixins: [mixins],
+  computed: Vuex.mapGetters("user", ["user", "playlist", "listenSongs"]),
   methods: {
     undeveloped() {
       this.$tip.show("该功能暂未开发");

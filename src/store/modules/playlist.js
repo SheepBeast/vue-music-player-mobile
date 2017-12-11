@@ -1,63 +1,46 @@
-import { replaceEmoji, timeDiff } from '../../assets/js/util'
+import { replaceEmoji, timeDiff, translateComment } from '../../assets/js/util'
 import { API_PLAYLIST_DETAIL, API_PLAYLIST_COMMENT } from '../../api'
 import Cache from '../../cache'
 
 let cache = new Cache()
 
 const state = {
-  _playlist: null
+  _playlist: null,
+  _comments: null
 }
 
 const getters = {
-  playlist(s) {
-    return s._playlist
-  }
+  playlist: s => s._playlist,
+  comments: s => s._comments
 }
 
 const mutations = {
   setPlaylist(s, { playlist, comments, done }) {
-    let now = Date.now()
-    comments.forEach(c => {
-      c.timeString = timeDiff(c.time, now)
-      c.translatedMessage = replaceEmoji(c.content)
-
-      if (c.beReplied.length > 0) {
-        let rep = c.beReplied[0]
-        c.translatedBeReplied = {
-          user: {
-            id: rep.user.userId,
-            nickname: rep.user.nickname
-          },
-          content: '@' + rep.user.nickname + '：' + replaceEmoji(rep.content)
-        }
-      }
-    })
-    playlist.comments = comments.sort(() => 0.5 - Math.random())
     s._playlist = playlist
-    done()
+    s._comments = translateComment(comments).sort(() => 0.5 - Math.random())
+    done && done()
   }
 }
 
 const actions = {
-  getPlaylist({ commit, getters }, { id, done }) {
+  async fetch({ commit, getters }, { id, done }) {
     if (cache.has(id) && !cache.isExpire()) {
       if (getters.playlist.id != id) {
         commit('setPlaylist', Object.assign({}, cache.get(id), done))
       } else {
         done()
       }
-      return false
-    }
-
-    let p1 = Vue.http.get(`${API_PLAYLIST_DETAIL}?id=${id}`),
-      p2 = Vue.http.get(`${API_PLAYLIST_COMMENT}?id=${id}`)
-    Promise.all([p1, p2]).then(res => {
-      let opts = {
-        playlist: res[0].body.playlist, comments: res[1].body.comments
-      }
+    } else {
+      let p1 = Vue.http.get(`${API_PLAYLIST_DETAIL}?id=${id}`),
+        p2 = Vue.http.get(`${API_PLAYLIST_COMMENT}?id=${id}`),
+        res = await Promise.all([p1, p2]),
+        opts = {
+          playlist: res[0].body.playlist,
+          comments: res[1].body.comments
+        }
       cache.set(id, opts)
-      commit('setPlaylist', Object.assign({}, opts, { done }))
-    })
+      commit('setPlaylist', Object.assign({ done }, opts))
+    }
   }
 }
 

@@ -27,14 +27,14 @@
         </toolbar-inner>
       </toolbar>
 
-      <h4 class="f-elpsl-1 ar-name">{{artist.name}}<span v-if="artist.alias">（{{artist.alias}}）</span></h4>
+      <h4 class="f-elpsl-1 ar-name">{{artist.name}}<span v-if="artist.alias[0]">（{{artist.alias[0]}}）</span></h4>
     </div>
 
     <section class="intro">
       <div class="description" :class="{'f-elpsl-2': !showDesc}" @click="toggle">
         简介：{{artist.briefDesc}}
       </div>
-      <icon :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="expand"></icon>
+      <icon :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="toggle"></icon>
     </section>
 
     <section v-if="hotSongs">
@@ -48,7 +48,7 @@
                 {{hs.name}}
                 <span v-if="hs.alias">{{hs.alias}}</span>
               </div>
-              <div class="third-title f-elpsl-1">{{hs.artist}} - {{hs.album}}</div>
+              <div class="third-title f-elpsl-1">{{hs.artist[0]}} - {{hs.album}}</div>
             </list-item-inner>
             <icon ligature="play_circle_outline" class="icon-play"></icon>
           </router-link>
@@ -60,12 +60,14 @@
 </template>
 
 <script>
+import mixins from './mixins'
 export default {
   data() {
     return {
       showDesc: false
     };
   },
+  mixins: [mixins],
   methods: {
     toggle() {
       this.showDesc = !this.showDesc;

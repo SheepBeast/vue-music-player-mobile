@@ -42,11 +42,11 @@
       </div>
     </section>
 
-    <section class="intro">
+    <section class="intro" v-if="album.description">
       <div class="description" :class="{'f-elpsl-2': !showDesc}" @click="toggle">
         简介：{{album.description}}
       </div>
-      <icon :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="expand"></icon>
+      <icon :ligature="!showDesc ? 'expand_more' : 'expand_less'" class="icon-expand" @click.native="toggle"></icon>
     </section>
 
     <template v-if="songs">
@@ -140,12 +140,14 @@
 </template>
 
 <script>
+import mixins from "../mixins";
 export default {
   data() {
     return {
       showDesc: false
     };
   },
+  mixins: [mixins],
   methods: {
     toggle() {
       this.showDesc = !this.showDesc;

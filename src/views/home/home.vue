@@ -92,7 +92,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.$router.pass = true
+    this.$router.pass = true;
   }
 };
 </script>

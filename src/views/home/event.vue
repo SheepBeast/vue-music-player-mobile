@@ -62,33 +62,33 @@
   <loading-page v-else></loading-page>
 </template>
 <script>
-  import { createService } from "../../assets/js/util.js";
+import { createService } from "../../assets/js/util.js";
 
-  /**
-   * 由于图片浏览器只在当前页面使用，所以该页面才注册photoBrowser服务，并注册局部指令
-   * 该页面为异步加载的页面，所以也减少首页加载时间
-   */
-  import PhotoBrowserPlugin from "../../plugins/photoBrowser.vue";
-  import ProtoBrowserDirective from "../../directives/photoBrowser.js";
+/**
+ * 由于图片浏览器只在当前页面使用，所以该页面才注册photoBrowser服务，并注册局部指令
+ * 该页面为异步加载的页面，所以也减少首页加载时间
+ */
+import PhotoBrowserPlugin from "../../plugins/photoBrowser.vue";
+import ProtoBrowserDirective from "../../directives/photoBrowser.js";
 
-  export default {
-    name: "event",
-    methods: {
-      undeveloped() {
-        this.$tip.show("该功能暂未开发");
-      }
-    },
-    directives: {
-      photoBrowser: ProtoBrowserDirective
-    },
-    computed: Vuex.mapGetters("event", ["event"]),
-    beforeCreate() {
-      if (!Vue.$photoBrowser) {
-        createService("$photoBrowser", PhotoBrowserPlugin);
-      }
-    },
-    mounted() {
-      this.$lazyload();
+export default {
+  name: "event",
+  beforeCreate() {
+    if (!Vue.$photoBrowser) {
+      createService("$photoBrowser", PhotoBrowserPlugin);
     }
-  };
+  },
+  methods: {
+    undeveloped() {
+      this.$tip.show("该功能暂未开发");
+    }
+  },
+  directives: {
+    photoBrowser: ProtoBrowserDirective
+  },
+  computed: Vuex.mapGetters("event", ["event"]),
+  mounted() {
+    this.$lazyload();
+  }
+};
 </script>

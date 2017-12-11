@@ -24,6 +24,6 @@
 <script>
   export default {
     name: "recommend",
-    computed: Vuex.mapGetters("recommend", ["recommend", "banner"])
+    computed: Vuex.mapGetters("recommend", ["recommend"])
   };
 </script>

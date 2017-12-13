@@ -36,7 +36,7 @@ export default function construct(router /* VueRouter类的实例 */) {
   proto.transfer = ''
 
   // push
-  proto._push = proto.push
+  proto.plainPush = proto.push
   proto.push = async function () {
     let args = arguments
     // 设置转场方向
@@ -44,17 +44,42 @@ export default function construct(router /* VueRouter类的实例 */) {
     // 预加载数据
     await applyPreloadFn(args[0])
     // 执行转场
-    proto._push.apply(router, args)
+    proto.plainPush.apply(router, args)
+  }
+
+  // replace
+  proto.plainReplace = proto.replace
+  proto.replace = async function () {
+    let args = arguments
+    proto.transfer = SLIDE_LEFT
+    await applyPreloadFn(args[0])
+    proto.plainReplace.apply(router, args)
+  }
+
+  // forward
+  proto.plainForward = proto.forward
+  proto.forward = function () {
+    proto.transfer = SLIDE_LEFT
+    proto.plainForward.call(router)
   }
 
   // back
-  proto._back = proto.back
+  proto.plainBack = proto.back
   proto.back = function () {
     proto.transfer = SLIDE_RIGHT
-    proto._back.call(router)
+    proto.plainBack.call(router)
   }
 
-  // replace, forward, go (TO DO)
+  // go
+  proto.plainGo = proto.go
+  proto.go = function () {
+    let index = arguments && arguments[0]
+
+    if(!isNaN(index) || index !== 0) {
+      proto.transfer = index > 0 ? SLIDE_LEFT : SLIDE_RIGHT
+      proto.plainGo.call(router)
+    }
+  }
 
   return router
 }

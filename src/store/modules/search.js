@@ -152,6 +152,7 @@ const mutations = {
   clearSuggest(s) {
     s._suggest = {}
   },
+  // 可使用localStorage代替
   setHistory(s, { keywords, remove }) {
     if (keywords) {
       let _h = s._history,

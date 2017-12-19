@@ -8,14 +8,11 @@
     -webkit-transition: background-color 0.4s ease-in-out, top 0.4s ease-in-out;
     transition: background-color 0.4s ease-in-out, top 0.4s ease-in-out;
     -webkit-overflow-scrolling: touch;
+    
     &::-webkit-scrollbar {
         display: none;
     }
-    &.active {
-        overflow: auto;
-        background-color: #fff; // -webkit-box-shadow: none;
-        // box-shadow: none;
-    }
+    
     .comment-label {
         font-size: 17px;
         font-weight: bolder;
@@ -52,6 +49,18 @@
         .reply-user-nickname {
             text-decoration: none;
             color: #1691c3;
+        }
+        .list-item:not(:last-child) .list-item-holder:after {
+            background-color: transparent;
+            -webkit-transition: backgroud-color 0.4s ease-in-out;
+            transition: backgroud-color 0.4s ease-in-out;
+        }
+    }
+    &.active {
+        overflow: auto;
+        background-color: #fff;
+        .comment-content .list .list-item:not(:last-child) .list-item-holder:after {
+            background-color: #eee;
         }
     }
 }

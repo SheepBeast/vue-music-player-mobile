@@ -10,11 +10,6 @@ let imagesHub = [],
   timer,
   id = 0
 
-/**
- * 缓存图片元素和需要懒加载的图片资源地址
- * @param {HTMLImageElement} el 
- * @param {Object} binding 
- */
 const cache = function (el, binding) {
   if (el.tagName !== 'IMG' || !binding.value) {
     return false

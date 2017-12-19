@@ -1,6 +1,7 @@
 import { stop } from '../assets/js/util'
 export default function construct(router /* VueRouter类的实例 */) {
-  const SLIDE_LEFT = 'slide-left', SLIDE_RIGHT = 'slide-right' /* 转场类(class) */
+  const SLIDE_LEFT = 'slide-left',
+    SLIDE_RIGHT = 'slide-right' /* 转场类(class) */
 
   let proto = router.__proto__,
     $store = router.app.$store,
@@ -59,15 +60,14 @@ export default function construct(router /* VueRouter类的实例 */) {
   // forward
   proto.plainForward = proto.forward
   proto.forward = function () {
-    proto.transfer = SLIDE_LEFT
-    proto.plainForward.call(router)
+    proto.go.call(router, 1)
   }
 
   // back
   proto.plainBack = proto.back
   proto.back = function () {
-    proto.transfer = SLIDE_RIGHT
-    proto.plainBack.call(router)
+    stop()
+    proto.go.call(router, -1)
   }
 
   // go
@@ -75,9 +75,10 @@ export default function construct(router /* VueRouter类的实例 */) {
   proto.go = function () {
     let index = arguments && arguments[0]
 
-    if(!isNaN(index) || index !== 0) {
+    console.log(2)
+    if (!isNaN(index) || index !== 0) {
       proto.transfer = index > 0 ? SLIDE_LEFT : SLIDE_RIGHT
-      proto.plainGo.call(router)
+      proto.plainGo.call(router, index)
     }
   }
 

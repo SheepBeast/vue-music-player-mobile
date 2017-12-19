@@ -5,11 +5,12 @@
 ![播放器](http://39.106.10.121/images/musicplayer.png "播放器")
 
 ### 项目简介
-1.  基于[vue](https://cn.vuejs.org/) + [vuex](https://vuex.vuejs.org/zh-cn/) + [vue-router](https://router.vuejs.org/zh-cn/) + [vue-resource](https://www.npmjs.com/package/vue-resource)开发
-2.  实现专辑、歌单、歌手、用户等信息的展示和音乐播放功能
-3.  自定义router的转场函数，实现数据预加载和灵活的转场效果
-4.  自定义组件、指令（如懒加载）、插件（如图片浏览器）等，减少第三方依赖项
-5.  合理缓存数据，减少HTTP请求数和页面渲染时间
+1.  基于[vue](https://cn.vuejs.org/) + [vuex](https://vuex.vuejs.org/zh-cn/) + [vue-router](https://router.vuejs.org/zh-cn/) + [vue-resource](https://www.npmjs.com/package/vue-resource)开发；
+2.  实现专辑、歌单、歌手、用户等信息的展示和音乐播放功能；
+3.	利用Vuex集中管理页面组件状态；
+4.  自定义Vue-Router类实例的转场函数，实现页面数据预加载和灵活的转场效果；
+5.  自定义组件、指令（如懒加载）、插件（如图片浏览器）等，减少第三方依赖项；
+6.  合理缓存数据，减少HTTP请求数和页面渲染时间。
 
 ### 更新日志
 #### 2017.12.11

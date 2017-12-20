@@ -17,10 +17,9 @@ const getters = {
       return false
     }
     let pt = new Date(s._album.publishTime)
-    return {
-      ...s._album,
+    return Object.assign({}, s._album, {
       publishTime: pt.getFullYear() + '-' + zFill(pt.getMonth() + 1) + '-' + zFill(pt.getDate())
-    }
+    })
   },
   songs(s) {
     return !s._songs ? false : s._songs.map(({ id, name, al, ar, alia }) => ({

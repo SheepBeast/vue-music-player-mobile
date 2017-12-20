@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import mixins from './mixins'
+import mixins from "../mixins";
 export default {
   mixins: [mixins],
   computed: Vuex.mapGetters("user", ["user", "playlist", "listenSongs"]),

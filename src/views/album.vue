@@ -1,6 +1,6 @@
 <template>
   <page id="album" class="playlist" v-if="album">
-    <section class="pl-header" >
+    <section class="pl-header">
       <div class="blur-bg" :style="{'background-image': `url(${album.picUrl})`}"></div>
 
       <toolbar class="navigate">
@@ -32,7 +32,8 @@
         <div class="pl-header-info">
           <h4 class="title f-elpsl-2">{{album.name}}</h4>
           <small class="subhead f-elpsl-1">
-            歌手：<router-link tag="span" :to="{name: 'artist', query: {id: album.artist.id}}">{{album.artist.name}}</router-link>
+            歌手：
+            <router-link tag="span" :to="{name: 'artist', query: {id: album.artist.id}}">{{album.artist.name}}</router-link>
           </small>
           <br>
           <small class="subhead f-elpsl-1">

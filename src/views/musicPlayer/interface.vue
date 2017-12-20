@@ -74,7 +74,7 @@ import comment from "./comment";
 import pipe from "./pipe";
 import playlist from "./playlist";
 import { deviceInfo } from "../../assets/js/util";
-import mixins from "../mixins";
+import mixins from "../../mixins";
 
 export default {
   data() {

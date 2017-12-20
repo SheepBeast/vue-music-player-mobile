@@ -1,36 +1,54 @@
-'use strict'
-const utils = require('./utils')
-const webpack = require('webpack')
-const config = require('../config')
-const merge = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var querystring = require('querystring')
+var webpack = require('webpack')
 
-// add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-})
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = merge(baseWebpackConfig, {
-  module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
+var webpackBaseConfig = require('./webpack.base.conf')
+var devConfig = require('./webpack.build.conf').development
+
+var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
+  output: {
+    publicPath: '/'
   },
-  // cheap-module-eval-source-map is faster for development
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: 'url-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.less$/,
+        loader: 'style-loader!css-loader!less-loader'
+      }
+    ]
+  },
   devtool: '#cheap-module-eval-source-map',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      'process.env': {
+        NODE_ENV: '"development"',
+        SERVER: devConfig.SERVER
+      }
     }),
-    // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'index.html',
       template: 'index.html',
       inject: true
-    }),
-    new FriendlyErrorsPlugin()
+    })
   ]
 })
+
+// 添加热替换脚本到入口文件尾部
+var hotMiddlewareConfig = devConfig.hotMiddleware,
+  hotMiddlewareScript = [hotMiddlewareConfig.client, querystring.stringify(hotMiddlewareConfig.query)].join('?')
+
+Object.keys(webpackConfig.entry).forEach(function (key) {
+  webpackConfig.entry[key] = [hotMiddlewareScript].concat(webpackConfig.entry[key])
+})
+
+module.exports = webpackConfig

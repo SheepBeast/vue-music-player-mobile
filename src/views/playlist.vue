@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import mixins from "./mixins";
+import mixins from "../mixins";
 export default {
   data() {
     return {

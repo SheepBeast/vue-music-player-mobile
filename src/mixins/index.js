@@ -1,4 +1,3 @@
-
 export const beforeRouteEnter = {
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -17,7 +16,4 @@ export const updated = {
   }
 }
 
-export default {
-  beforeRouteEnter,
-  updated
-}
+export default Object.assign({}, beforeRouteEnter, updated)

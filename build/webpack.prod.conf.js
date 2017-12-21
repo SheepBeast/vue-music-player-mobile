@@ -19,8 +19,8 @@ var assetsPath = function (filename) {
 var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: assetsPath('js/[name].[chunkhash].js'),
     publicPath: '/dist/',
+    filename: assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: assetsPath('js/[name].[chunkhash].js')
   },
   module: {
@@ -76,13 +76,13 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
     new ExtractTextWebpackPlugin({
       filename: assetsPath('css/[name].[contenthash].css')
     }),
-    // extract-text-webpack-plugin处理后的样式代码可能依然存在同样的两份
-    // optimize-css-assets-webpack-plugin可以把处理的样式的公共部分抽离出来
+    // extract-text-webpack-plugin处理后的样式代码可能依然有重复的可能
+    // optimize-css-assets-webpack-plugin可以解决以上问题
     new OptimizeCssAssetsWebpackPlugin({
       cssProcessorOptions: {
         safe: true
       },
-      discarComments: {
+      discardComments: {
         removeAll: true
       }
     }),

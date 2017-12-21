@@ -1,4 +1,3 @@
-var querystring = require('querystring')
 var webpack = require('webpack')
 
 var HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -45,7 +44,10 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
 
 // 添加热替换脚本到入口文件尾部
 var hotMiddlewareConfig = devConfig.hotMiddleware,
-  hotMiddlewareScript = [hotMiddlewareConfig.client, querystring.stringify(hotMiddlewareConfig.query)].join('?')
+  hotMiddlewareScript = [
+    hotMiddlewareConfig.client,
+    require('querystring').stringify(hotMiddlewareConfig.query)
+  ].join('?')
 
 Object.keys(webpackConfig.entry).forEach(function (key) {
   webpackConfig.entry[key] = [hotMiddlewareScript].concat(webpackConfig.entry[key])

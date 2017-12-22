@@ -20,8 +20,8 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/dist/',
-    filename: assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: assetsPath('js/[name].[chunkhash].js')
+    filename: assetsPath('js/[name].[chunkhash:8].js'),
+    chunkFilename: assetsPath('js/[name].[chunkhash:8].js')
   },
   module: {
     rules: [
@@ -32,7 +32,7 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: assetsPath('img/[name].[hash:7].[ext]')
+              name: assetsPath('img/[name].[hash:8].[ext]')
             }
           }
         ]
@@ -55,7 +55,13 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
       }
     ]
   },
+  performance: {
+    hints: 'error'
+  },
   devtool: '#source-map',
+  stats: {
+    entrypoints: true
+  },
   plugins: [
     new CleanWebpackPlugin(['../dist']),
     new webpack.DefinePlugin({
@@ -74,7 +80,7 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
         comments: false
       }),
     new ExtractTextWebpackPlugin({
-      filename: assetsPath('css/[name].[contenthash].css')
+      filename: assetsPath('css/[name].[contenthash:8].css')
     }),
     // extract-text-webpack-plugin处理后的样式代码可能依然有重复的可能
     // optimize-css-assets-webpack-plugin可以解决以上问题
@@ -90,7 +96,6 @@ var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
       title: 'vue-music-player',
       template: 'index.html',
       inject: true,
-      favicon: '',
       minify: {
         minifyCSS: true,
         minifyJS: true,

@@ -18,10 +18,8 @@ var webpackConfig = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.json', '.vue', '.less'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
+    modules: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../node_modules')],
+    extensions: ['.js', '.json', '.vue', '.less']
   },
   // 外部引用库，减少打包后的体积
   externals: {

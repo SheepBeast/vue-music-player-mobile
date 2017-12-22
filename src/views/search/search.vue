@@ -60,9 +60,7 @@
 </template>
 
 <script>
-const songs = resolve => {
-  require(["./songs"], resolve);
-};
+import songs from './songs'
 
 export default {
   name: "search",

@@ -1,6 +1,6 @@
 <template>
   <page class="search">
-    <toolbar fixed>
+    <toolbar>
       <icon ligature="navigate_before" style="font-size: 26px; color: #fff;" @click.native="back"></icon>
       <toolbar-inner>
         <searchbar @searchbar:init="searchbarInit" @searchbar:submit="quicksearch" placeholder="搜索歌曲、歌手、专辑" @searchbar:input="input" @searchbar:cancel="cancel"></searchbar>

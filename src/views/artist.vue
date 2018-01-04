@@ -3,25 +3,15 @@
     <div class="ar-header">
       <img class="ar-bg" :src="artist.picUrl">
 
-      <toolbar fixed class="navigate" style="position: absolute;">
-        <toolbar-inner>
-          <grid>
-            <cell :span="33"></cell>
-            <cell :span="33" class="text-center" style="align-self: center;">
-              <span class="title">歌手</span>
-            </cell>
-            <cell :span="33"></cell>
-          </grid>
-        </toolbar-inner>
-      </toolbar>
-
-      <toolbar fixed class="navigate">
+      <toolbar class="navigate" style="position: absolute;">
         <toolbar-inner>
           <grid>
             <cell :span="33">
               <back></back>
             </cell>
-            <cell :span="33"></cell>
+            <cell :span="33" class="text-center" style="align-self: center;">
+              <span class="title">歌手</span>
+            </cell>
             <cell :span="33"></cell>
           </grid>
         </toolbar-inner>

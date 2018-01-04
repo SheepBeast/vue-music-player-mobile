@@ -1,6 +1,8 @@
 @import '../constant.less';
 .toolbar {
     width: 100%;
+    left: 0;
+    top: 0;
     min-height: @navbar-height;
     height: @navbar-height;
     display: -webkit-box;
@@ -35,17 +37,19 @@
         width: 40px;
         height: 24px;
     }
-    &.toolbar-fixed {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 10;
-    }
     &.navigate {
         color: #fff;
         .back {
             font-size: 30px;
             vertical-align: middle;
         }
+    }
+    &.toolbar-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
 }

@@ -4,22 +4,11 @@
       <toolbar class="navigate u-header-toolbar">
         <toolbar-inner>
           <grid>
-            <cell :span="33"></cell>
-            <cell :span="33" class="text-center" style="align-self: center;">
-              <span class="title">用户</span>
-            </cell>
-            <cell :span="33"></cell>
-          </grid>
-        </toolbar-inner>
-      </toolbar>
-
-      <toolbar fixed class="navigate">
-        <toolbar-inner>
-          <grid>
             <cell :span="33">
               <back></back>
             </cell>
-            <cell :span="33">
+            <cell :span="33" class="text-center" style="align-self: center;">
+              <span class="title">用户</span>
             </cell>
             <cell :span="33"></cell>
           </grid>

@@ -1,6 +1,6 @@
 <template>
   <page id="home" class="home">
-    <toolbar fixed class="navbar shadow-3d">
+    <toolbar class="navbar shadow-3d">
       <router-link :to="{name: 'search'}" class="toolbar-icon">
         <icon ligature="search" style="vertical-align: middle;"></icon>
       </router-link>

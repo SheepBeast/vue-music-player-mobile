@@ -1,57 +1,63 @@
 * {
-  cursor: default;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  -webkit-tap-highlight-color: transparent;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+     ::-webkit-scrollbar {
+        display: none;
+    }
+    -webkit-tap-highlight-color: transparent;
 }
 
-html,body {
-  height: 100%;
-}
+html,
 body {
-  font-family: "Arial" ! important;
-  background: #fff;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    font-family: "Arial" ! important;
+    background: #fff;
 }
 
 .round {
-  border-radius: 12px;
+    border-radius: 12px;
 }
 
 .shadow-3d {
-  -webkit-box-shadow: 0 6px 5px rgba(0, 0, 0, .2), 0 1px 2px rgba(0, 0, 0, .14), 0 1px 1px -2px rgba(0, 0, 0, .12);
-  box-shadow: 0 6px 5px rgba(0, 0, 0, .2), 0 1px 2px rgba(0, 0, 0, .14), 0 1px 1px -2px rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0 6px 5px rgba(0, 0, 0, .2), 0 1px 2px rgba(0, 0, 0, .14), 0 1px 1px -2px rgba(0, 0, 0, .12);
+    box-shadow: 0 6px 5px rgba(0, 0, 0, .2), 0 1px 2px rgba(0, 0, 0, .14), 0 1px 1px -2px rgba(0, 0, 0, .12);
 }
 
 .shadow-3d-reverse {
-  -webkit-box-shadow: 0 -6px 5px rgba(0, 0, 0, .2), 0 -1px 2px rgba(0, 0, 0, .14), 0 -1px 1px -2px rgba(0, 0, 0, .12);
-          box-shadow: 0 -6px 5px rgba(0, 0, 0, .2), 0 -1px 2px rgba(0, 0, 0, .14), 0 -1px 1px -2px rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0 -6px 5px rgba(0, 0, 0, .2), 0 -1px 2px rgba(0, 0, 0, .14), 0 -1px 1px -2px rgba(0, 0, 0, .12);
+    box-shadow: 0 -6px 5px rgba(0, 0, 0, .2), 0 -1px 2px rgba(0, 0, 0, .14), 0 -1px 1px -2px rgba(0, 0, 0, .12);
 }
 
 .text-left {
-  text-align: left;
+    text-align: left;
 }
+
 .text-center {
-  text-align: center;
+    text-align: center;
 }
+
 .text-right {
-  text-align: right;
+    text-align: right;
 }
 
 .f-elpsl-1 {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .f-elpsl-2 {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }

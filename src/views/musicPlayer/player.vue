@@ -28,11 +28,8 @@ export default {
     stalled() {
       pipe.$emit("unsupported");
     },
-
     canplay() {
-      if (this.recentlyPlaying) {
-        this.player.play();
-      }
+      this.player.play();
     },
     durationchange() {
       this.$store.commit("musicPlayer/loadedmetadata", {
@@ -77,11 +74,13 @@ export default {
         }
       })
       .$on("seeked", ({ currentTime }) => {
-        // let idx = this.lyric.findIndex(lrc => lrc.time >= currentTime);
-        // if (idx > -1) {
-        //   this.$store.commit("musicPlayer/setNextCursor", { cursor: idx });
-        // }
         this.player.currentTime = currentTime;
+      })
+      .$on("reset", ()=>{
+        this.player.currentTime = 0
+        this.player.pause()
+        this.$store.commit("musicPlayer/pause")
+        this.$store.commit("musicPlayer/reset")
       })
       .$on("unsupported", () => {
         this.player.pause();

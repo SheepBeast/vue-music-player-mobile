@@ -16,26 +16,14 @@ const state = {
   _playIndex: 0,
   _musicUrl: "",
   _recentlyPlaying: true,
+  _supported: true
 
-  // _lyric: null,
-  _supported: true,
-  // _currentLyricLine: -1,
-  // _nextCursor: 0
 }
 
 const getters = {
   currentTime: s => s._currentTime,
   duration: s => s._duration,
-  currentTimeString(s, getters) {
-    // if (getters.lyric[s._nextCursor]) {
-    //   let latestLyric = getters.lyric[s._nextCursor]
-    //   if (latestLyric && s._currentTime >= latestLyric.time) {
-    //     s._currentLyricLine = s._nextCursor
-    //     ++s._nextCursor
-    //   }
-    // }
-    return timeTransform(s._currentTime)
-  },
+  currentTimeString: s => timeTransform(s._currentTime),
   durationString: s => timeTransform(s._duration),
   playing: s => s._playing,
   currentPlays: s => s._playlist[s._playIndex],
@@ -44,40 +32,6 @@ const getters = {
   mode: s => s._mode,
   switch_button: s => !s._playing ? 'play_arrow' : 'pause',
   recentlyPlaying: s => s._recentlyPlaying,
-  // lyric(s) {
-  //   let _lyric = s._playlist[s._playIndex].lyric
-  //   if (_lyric) {
-  //     let splited = _lyric.split('\n'),
-  //       parsed = []
-
-  //     splited.pop()
-  //     for (let i = 0, l = splited.length, time, clause, temp, _temp, min, sec; i < l; i++) {
-  //       temp = splited[i]
-  //       time = temp.match(timeReg)
-  //       if (time) {
-  //         time = time[0].replace(timeReplaceReg, '')
-  //       } else {
-  //         time = '00:00'
-  //       }
-  //       clause = temp.replace(timeReg, '').trim()
-  //       if (clause) {
-  //         _temp = time.split(':')
-  //         min = parseInt(_temp[0])
-  //         sec = parseFloat(_temp[1])
-  //         parsed.push({
-  //           time: min * 60 + sec,
-  //           clause
-  //         })
-  //       }
-  //     }
-  //     s._currentLyricLine = -1
-  //     s._nextCursor = 0
-  //     return parsed
-  //   }
-  //   return []
-  // },
-  // currentLyricLine: s => s._currentLyricLine,
-  // nextCursor: s => s._nextCursor,
   musicUrl: s => s._musicUrl,
   supported: s => s._supported
 }
@@ -104,6 +58,7 @@ const mutations = {
     if (!s._playlist[prev].supported) {
       pipe.$emit('unsupported')
     }
+    pipe.$emit('reset')
   },
   skipNext(s) {
     let next = s._playIndex + 1
@@ -114,14 +69,15 @@ const mutations = {
     if (!s._playlist[next].supported) {
       pipe.$emit('unsupported')
     }
+    pipe.$emit('reset')
   },
   setRecentlyPlaying(s, { recentlyPlaying }) {
     s._recentlyPlaying = recentlyPlaying
   },
 
-  canplay(s, { recentlyPlaying }) {
-    s._recentlyPlaying = recentlyPlaying
-  },
+  // canplay(s, { recentlyPlaying }) {
+  //   s._recentlyPlaying = recentlyPlaying
+  // },
   durationchange(s, { duration }) {
     s._duration = duration
   },
@@ -177,13 +133,10 @@ const mutations = {
       ar,
       al,
       url,
-      // comments: translateComment(comments).sort(() => 0.5 - Math.random()),
-      // total,
-      // more,
       lyric,
       supported
     })
-    // s._lyric = lyric
+    pipe.$emit('reset')
     s._playIndex = s._playlist.length - 1
     done()
   },
@@ -209,6 +162,10 @@ const mutations = {
     if (!s._playlist[index].supported) {
       pipe.$emit('unsupported')
     }
+    pipe.$emit('reset')
+  },
+  reset(s) {
+    s._currentTime = 0
   },
   remove(s, { index, vm }) {
     let p = s._playlist
@@ -243,32 +200,25 @@ const actions = {
         // p3 = Vue.http.get(`${API_MUSIC_COMMENT}?limit=20&id=${id}`),
         p4 = Vue.http.get(`${API_MUSIC_LYRIC}?id=${id}`),
 
-       res = await Promise.all([p1, p2, /* p3,*/ p4]),
-       song = res[0].body.songs[0], 
-       url = res[1].body.data[0].url, 
-       lrc
-      
+        res = await Promise.all([p1, p2, /* p3,*/ p4]),
+        song = res[0].body.songs[0],
+        url = res[1].body.data[0].url,
+        lrc
+
       // 设置歌曲信息
       commit('addSong', {
         song: res[0].body.songs[0],
         url,
-        // comments: res[2].body.comments,
-        // total: res[2].body.total,
-        // more: res[2].body.more,
-        // lyric: (lrc = res[2].body.lrc) && lrc.lyric || null,
         supported: true,
         done
       })
 
-      // 即使设置歌曲但还是需要判断是否支持播放
-      // 如果不支持则页面只显示歌曲信息而提示不能播放
-      // 避免直接显示空白页
-      if(url) {
+      if (url) {
         let resp = await Vue.http.get(`${API_ALBUM}?id=${song.al.id}`)
         if (resp.body.album.status == -3) {
           pipe.$emit('unsupported')
         }
-      }else{
+      } else {
         pipe.$emit('unsupported')
       }
     }

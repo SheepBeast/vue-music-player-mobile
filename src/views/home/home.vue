@@ -17,11 +17,9 @@
       <div v-else class="toolbar-icon" style="width: 40px; height: 20px;"></div>
     </toolbar>
 
-    <transition :name="tabTransition">
-      <keep-alive>
-        <component :is="currentView"></component>
-      </keep-alive>
-    </transition>
+    <keep-alive>
+      <component :is="currentView"></component>
+    </keep-alive>
 
   </page>
 </template>

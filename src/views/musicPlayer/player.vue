@@ -77,10 +77,10 @@ export default {
         }
       })
       .$on("seeked", ({ currentTime }) => {
-        let idx = this.lyric.findIndex(lrc => lrc.time >= currentTime);
-        if (idx > -1) {
-          this.$store.commit("musicPlayer/setNextCursor", { cursor: idx });
-        }
+        // let idx = this.lyric.findIndex(lrc => lrc.time >= currentTime);
+        // if (idx > -1) {
+        //   this.$store.commit("musicPlayer/setNextCursor", { cursor: idx });
+        // }
         this.player.currentTime = currentTime;
       })
       .$on("unsupported", () => {

@@ -1,8 +1,5 @@
 .music-player-interface {
     overflow: hidden;
-    z-index: 10;
-    position: fixed;
-    height: 100%;
     background: rgb(140, 140, 140);
     #blur::before {
         content: '';
@@ -77,8 +74,12 @@
     }
     @import './timeline.less';
     .controls {
-        padding-top: 20px;
-        padding-bottom: 20px;
+        // position: absolute;
+        // bottom: 0;
+        // left: 0;
+        // width: 100%;
+        padding-top: 30px;
+        // padding-bottom: 20px;
         .info {
             display: -webkit-box;
             display: -ms-flexbox;
@@ -110,7 +111,5 @@
             align-items: center;
         }
     }
-    @import './comment.less';
-    @import './miniInterface.less';
     @import './playlist.less';
 }

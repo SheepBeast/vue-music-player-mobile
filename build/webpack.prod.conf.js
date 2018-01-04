@@ -18,8 +18,8 @@ var assetsPath = function (filename) {
 
 var webpackConfig = require('webpack-merge')(webpackBaseConfig, {
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, '../dist2'),
+    publicPath: '/dist2/',
     filename: assetsPath('js/[name].[chunkhash:8].js'),
     chunkFilename: assetsPath('js/[name].[chunkhash:8].js')
   },

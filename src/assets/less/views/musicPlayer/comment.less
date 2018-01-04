@@ -1,30 +1,19 @@
 // @icon-height: 54px;
 .comment {
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
-    -webkit-transition: background-color 0.4s ease-in-out, top 0.4s ease-in-out;
-    transition: background-color 0.4s ease-in-out, top 0.4s ease-in-out;
-    -webkit-overflow-scrolling: touch;
-    
-    &::-webkit-scrollbar {
-        display: none;
+    .navigate-before {
+        display: inline-block;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
     }
-    
-    .comment-label {
-        font-size: 17px;
-        font-weight: bolder;
-        padding: 8px 10px;
-        height: 40px;
-        .count {
-            // color: orangered; // margin-left: 4px;
-            color: rgba(255, 69, 0, 0.8);
-        }
+    .toolbar.navbar {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FA8723), to(#F57614));
+        background: linear-gradient(to bottom, #FA8723 0, #F57614 100%);
     }
     .comment-content .list {
-        background-color: transparent;
         .avatar {
             -ms-flex-item-align: start;
             align-self: flex-start;
@@ -32,6 +21,9 @@
         }
         .primary-title {
             font-size: 14px;
+        }
+        .time-string {
+            float: right;
         }
         .message {
             margin-top: 4px;
@@ -49,18 +41,6 @@
         .reply-user-nickname {
             text-decoration: none;
             color: #1691c3;
-        }
-        .list-item:not(:last-child) .list-item-holder:after {
-            background-color: transparent;
-            -webkit-transition: backgroud-color 0.4s ease-in-out;
-            transition: backgroud-color 0.4s ease-in-out;
-        }
-    }
-    &.active {
-        overflow: auto;
-        background-color: #fff;
-        .comment-content .list .list-item:not(:last-child) .list-item-holder:after {
-            background-color: #eee;
         }
     }
 }

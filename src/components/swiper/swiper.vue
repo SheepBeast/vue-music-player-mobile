@@ -31,8 +31,8 @@ export default {
       {
         staticClass: "swiper-wrapper",
         on: {
-          mousedown: this.mousedown,
-          mouseup: this.mouseup,
+          touchstart: this.touchstart,
+          touchend: this.touchend,
           transitionend: this.transitionend
         },
         style: {
@@ -85,17 +85,17 @@ export default {
   },
 
   methods: {
-    mousedown(e) {
+    touchstart(e) {
       if (this.isSliding) {
         return false;
       }
       clearTimeout(this.timer);
-      this.tmp.pageX = e.pageX;
+      this.tmp.pageX = e.changedTouches[0].pageX;
       this.tmp.startTime = Date.now();
     },
-    mouseup(e) {
+    touchend(e) {
       e.stopPropagation();
-      let offset = e.pageX - this.tmp.pageX;
+      let offset = e.changedTouches[0].pageX - this.tmp.pageX;
 
       // 若在第一张幻灯片时向左滑动或在最后一张幻灯片向右滑动都无效
       if (

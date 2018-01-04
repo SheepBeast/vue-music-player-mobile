@@ -16,7 +16,7 @@
             <p class="message" v-html="e.message"></p>
             <grid class="gutter">
               <cell :span="33" v-for="(p, i) in e.picsUrl" :key="p.id">
-                <img class="lazyload" v-photo-browser="{group: e.id, index: i, url: p.originUrl, width: p.width, height: p.height}" v-lazyload="{src: p.squareUrl, wrapper: '#home'}">
+                <img class="lazyload" v-photo-browser="{url: p.originUrl}" v-lazyload="{src: p.squareUrl, wrapper: '#home'}">
               </cell>
             </grid>
 

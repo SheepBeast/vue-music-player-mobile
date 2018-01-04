@@ -1,84 +1,27 @@
 .photo-browser {
-    position: fixed;
-    z-index: 2000;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: none;
-    overflow: hidden;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease;
-    animation-timing-function: ease;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    &.zoom-in {
-        -webkit-animation-name: photo-browser-zoom-in;
-        animation-name: photo-browser-zoom-in;
+    background-color: #111;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    left: 100%;
+    -webkit-transition: left 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out;
+    &.active {
+      left: 0;
     }
-    &.zoom-out {
-        -webkit-animation-name: photo-browser-zoom-out;
-        animation-name: photo-browser-zoom-out;
-    }
-    .fixer {
+    >img {
         position: absolute;
-        opacity: 0;
-        overflow: auto;
-        -webkit-transition: all 0.5s ease;
-        transition: all 0.5s ease;
-    }
-    .swiper {
+        width: 100%;
         top: 50%;
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
-        .swiper-slide>img {
-            cursor: move;
-        }
     }
-}
-
-.photo-browser-origin-image {
-    -webkit-transition: opacity 0.3s ease;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-}
-
-// photo-browser-zoom-in
-@-webkit-keyframes photo-browser-zoom-in {
-    from {
-        background-color: transparent;
-    }
-    to {
-        background-color: #000;
-    }
-}
-
-@keyframes photo-browser-zoom-in {
-    from {
-        background-color: transparent;
-    }
-    to {
-        background-color: #000;
-    }
-}
-
-// photo-browser-zoom-out
-@-webkit-keyframes photo-browser-zoom-out {
-    from {
-        background-color: #000;
-    }
-    to {
-        background-color: transparent;
-    }
-}
-
-@keyframes photo-browser-zoom-out {
-    from {
-        background-color: #000;
-    }
-    to {
-        background-color: transparent;
+    .toolbar .navigate-before {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
     }
 }

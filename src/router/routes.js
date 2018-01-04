@@ -22,6 +22,17 @@ export default [
     }
   },
   {
+    path: '/musicPlayerComment',
+    name: 'musicPlayerComment',
+    component: resolve => require(['../views/musicPlayer/comment.vue'], resolve),
+    meta: {
+      preload({ dispatch }, payload) {
+        console.log('comm', payload)
+        dispatch('musicPlayerComment/fetch', payload)
+      }
+    }
+  },
+  {
     path: '/playlist',
     name: 'playlist',
     component: resolve => require(['../views/playlist.vue'], resolve),
